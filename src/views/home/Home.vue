@@ -1,5 +1,5 @@
 <template>
-    <div id="home">
+    <div  id="home">
         <nav-bar class="home-nav-bar">
             <div slot="left">&lt;</div>
             <div slot="center"><input type="search" placeholder="衣服"></div>
