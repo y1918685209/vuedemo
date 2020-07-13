@@ -21,7 +21,23 @@ export default {
     name:"Home",
     data(){
         return {
-            banners:null
+            banners:null,
+            feature:[
+                [
+                    {id:'1',img:"xxx",href:"xxx",metail:"xxx"},
+                    {id:'2',img:"xxx",href:"xxx",metail:"xxx"},
+                    {id:'3',img:"xxx",href:"xxx",metail:"xxx"},
+                    {id:'4',img:"xxx",href:"xxx",metail:"xxx"},
+                    {id:'5',img:"xxx",href:"xxx",metail:"xxx"},
+                ],
+                [
+                    {id:'1',img:"xxx",href:"xxx",metail:"xxx"},
+                    {id:'2',img:"xxx",href:"xxx",metail:"xxx"},
+                    {id:'3',img:"xxx",href:"xxx",metail:"xxx"},
+                    {id:'4',img:"xxx",href:"xxx",metail:"xxx"},
+                    {id:'5',img:"xxx",href:"xxx",metail:"xxx"},
+                ]
+            ]
         }
     },
     components:{
