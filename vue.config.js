@@ -7,7 +7,7 @@ module.exports={
                 "assets":"@/assets",
                 "components":"@/components",
                 "views":"@/views",
-                "network":"@/newwork",
+                "network":"@/network",
                 "common":"@/common"//common指的是公共的js文件夹
             }
         }
