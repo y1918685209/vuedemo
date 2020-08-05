@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>我的</div>
 </template>
 <script>
@@ -19,3 +20,15 @@ export default {
 
 <style scoped>
 </style>
+=======
+    <h2>我的</h2>
+</template>
+<script>
+    export default {
+        name:"Profile"
+    }
+</script>
+<style scoped>
+
+</style>
+>>>>>>> 5105c642baebfafca0f869a4c6b568e420ed3ae6

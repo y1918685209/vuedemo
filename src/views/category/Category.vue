@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     <nav-bar class="home-nav-bar">
       <div slot="left" @click="back">&lt;</div>
@@ -273,3 +274,15 @@ export default {
   height:30px;
 }
 </style>
+=======
+    <h2>分类</h2>
+</template>
+<script>
+    export default {
+        name:"Category"
+    }
+</script>
+<style scoped>
+
+</style>
+>>>>>>> 5105c642baebfafca0f869a4c6b568e420ed3ae6

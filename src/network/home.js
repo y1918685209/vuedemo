@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { request } from './request'
 export function getHomeBanner() {
     return request({
@@ -36,3 +37,11 @@ export function get_jd_category_max(page) {
 //         }
 //     })
 // }
+=======
+import {request} from "./request"
+export function getHomeBanner(){
+    return request({
+        url:"/vuedemo/banner"
+    })
+}
+>>>>>>> 5105c642baebfafca0f869a4c6b568e420ed3ae6

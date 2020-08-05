@@ -22,6 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+<<<<<<< HEAD
 
 
 
@@ -70,3 +71,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
     
 
+=======
+>>>>>>> 5105c642baebfafca0f869a4c6b568e420ed3ae6
