@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //引入插件
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -33,20 +32,4 @@ const x = new Vuex.Store({
   modules: {} //模块
 })
 export default x
-=======
-import Vue from 'vue'
-import Vuex from 'vuex'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
->>>>>>> 5105c642baebfafca0f869a4c6b568e420ed3ae6

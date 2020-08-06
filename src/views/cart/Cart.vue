@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div>
     <scroll id="cartScroll">
       <nav-bar class="cartNavBar" ref="cartNavBar">
@@ -164,15 +163,3 @@ body {
   margin: 0;
 }
 </style>
-=======
-    <h2>购物车</h2>
-</template>
-<script>
-    export default {
-        name:"Cart"
-    }
-</script>
-<style scoped>
-
-</style>
->>>>>>> 5105c642baebfafca0f869a4c6b568e420ed3ae6

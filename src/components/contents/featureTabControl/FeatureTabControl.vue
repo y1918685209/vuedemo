@@ -60,10 +60,10 @@ export default {
 .tabControl {
   width: 100%;
   font-size: 12px;
-  background:#f8f8f8;
   line-height: 40px;
 }
 .tabControl div {
+  border-bottom: 1px solid #555555;
   height: 40px;
 }
 .active {

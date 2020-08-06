@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <!-- 用于关联feature组件 -->
     <feature divID="HomeFeature" :iscopy="iscopy">
         <feature-item v-for="(item,index) in cfeature" :key="index">
@@ -53,9 +52,4 @@ export default {
 <style scoped>
 
 </style>
-=======
-    <div id='feature'>
-        <slot v-for="(item,index) in 2" :key="index"></slot>
-    </div>
-</template>
->>>>>>> 5105c642baebfafca0f869a4c6b568e420ed3ae6
+

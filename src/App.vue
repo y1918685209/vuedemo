@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div id="app">
     <!-- 
       缓存中会存有数据记录，所以在使用过的时候，会出现数据不进行替换。 
@@ -39,23 +38,4 @@ export default {
 #app{
   height:100vh;
 }
-=======
-  <div id="app">    
-    <router-view/>
-    <main-tab-bar>
-    </main-tab-bar>
-  </div>
-</template>
-<script>
-import MainTabBar from "components/contents/MainTabbar/MainTabbar.vue"
-export default {
-  name:"app",
-  components:{
-    MainTabBar
-  }
-}
-</script>
-<style>
-@import "assets/css/base.css";
->>>>>>> 5105c642baebfafca0f869a4c6b568e420ed3ae6
 </style>
