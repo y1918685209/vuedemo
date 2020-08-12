@@ -2,7 +2,10 @@
 import * as types from "./mutation-types"
 export default {
     getShopCart(contents,payload){
+<<<<<<< HEAD
         console.log(payload);
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
         // this.$store.commit("方法",参数)
         //contents 相当与 $store   使用commit
         //调用vuex的mutations中的 types.POST_SHOPCART 方法

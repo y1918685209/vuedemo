@@ -10,12 +10,19 @@
     <!-- <a href="javascript:;"> -->
     <router-link tag='a' :to="'/details/'+citem.id">
       <img :src="itemPath+'/goods/'+ citem.img_cover " @load="loadMore" />
+<<<<<<< HEAD
       <span class="title">
         <p class="title1">
           {{citem.name}}
         </p>
         <br>
         ￥{{citem.money_now}}
+=======
+      <span>
+        {{citem.name}}
+        <br>
+        {{citem.money_now}}
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
         <br>
       </span>
     </router-link>
@@ -73,7 +80,11 @@ export default {
 </script>
 <style scoped>
 .GoodsListItem {
+<<<<<<< HEAD
   border-bottom: 1px solid black;
+=======
+  border-bottom: 3px solid black;
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 }
 .GoodsListItem.transverse {
   /* transverse 横向---独占一行 */
@@ -93,6 +104,10 @@ export default {
 .GoodsListItem.transverse a span {
   display: block;
   width: 60%;
+<<<<<<< HEAD
+=======
+  background: pink;
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   text-align: left;
 }
 .GoodsListItem.column {
@@ -110,6 +125,7 @@ export default {
   display: block;
   line-height: 40px;
 }
+<<<<<<< HEAD
 .title .title1{
   overflow: hidden;
   display: -webkit-box; 
@@ -117,3 +133,6 @@ export default {
   -webkit-box-orient: vertical; 
 }
 </style>
+=======
+</style>>style>
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477

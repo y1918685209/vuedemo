@@ -3,7 +3,11 @@
     <nav-bar class="home-nav-bar">
       <div slot="left" @click="back">&lt;</div>
       <div slot="center">
+<<<<<<< HEAD
         <el-input class="textarea" v-model="input" placeholder="请输入内容" v-on:focus="toKeywords"></el-input>
+=======
+        <el-input v-model="input" placeholder="请输入内容" v-on:focus="toKeywords"></el-input>
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       </div>
       <div slot="right">登录</div>
     </nav-bar>
@@ -240,6 +244,10 @@ export default {
 }
 .active {
   color: red;
+<<<<<<< HEAD
+=======
+  background-color:#fff;
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 }
 .two dl {
   display: flex;
@@ -265,6 +273,7 @@ export default {
 .home-nav-bar{
   background-color:#fff;
   color:black;
+<<<<<<< HEAD
 }
 .textarea /deep/ .el-input__inner{
   border-radius: 20px;
@@ -272,3 +281,13 @@ export default {
   padding-top: 2px;
 }
 </style>
+=======
+
+}
+.el-input__inner{
+  border-radius:30px;
+  height:30px;
+}
+</style>
+
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477

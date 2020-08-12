@@ -3,10 +3,18 @@
     <nav-bar class="home-nav-bar" >
       <div slot="left" v-on:click="toCategory"><img src="../../assets/img/1/分类.png" alt=""></div>
       <div slot="center">
+<<<<<<< HEAD
         <el-input class="textarea" v-model="input" placeholder="请输入内容" v-on:focus="toKeywords"></el-input>
       </div>
       <div slot="right" @click="Login">登录</div>
     </nav-bar>
+=======
+        <el-input v-model="input" placeholder="请输入内容" v-on:focus="toKeywords"></el-input>
+      </div>
+      <div slot="right" @click="Login">登录</div>
+    </nav-bar>
+    <hr />
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
     <scroll
       class="homeContent"
       :probeType="3"
@@ -17,8 +25,15 @@
     >
       <!-- 轮播图 -->
       <home-rotation :cbanners="banners"></home-rotation>
+<<<<<<< HEAD
       <!-- 功能视图 -->
       <home-feature :cfeature="feature" @cfeatureAll='toFeatureAll'></home-feature>
+=======
+      <hr />
+      <!-- 功能视图 -->
+      <home-feature :cfeature="feature" @cfeatureAll='toFeatureAll'></home-feature>
+      <hr />
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       <div>
         <button style="width:100%" @click="changeDirection">改变商品数据排列</button>
       </div>
@@ -56,6 +71,10 @@ import { debounce } from "common/utils";
 import { getHomeBanner, getFeature} from "network/home";
 //取商品数据
 import { getGoods} from "network/goods";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 export default {
   name: "Home",
   data() {
@@ -108,6 +127,7 @@ export default {
     this.getHomeBanner();
     //获取功能视图数据
     this.getFeature(1);
+<<<<<<< HEAD
     this.getGoodsMax("recommend");
     this.getGoodsMax("news");
     this.getShopCart(this.$store.state.userInfo);
@@ -122,6 +142,27 @@ export default {
     //在组件离开的时候，记录滚动条的位置
     this.saveY = this.$refs.homeScrollCom.scroll.y;
     // console.log(this.saveY);
+=======
+    // var arr = [1,2,3,4,5]
+    // this.filterFeatrue(100)
+    this.getGoodsMax("recommend");
+    this.getGoodsMax("news");
+    console.log(this.feature);
+  },
+  activated() {
+    console.log("组件激活状态");
+    //在组件激活的时候，调整滚动条的位置。
+    console.log(this.saveY);
+    this.$refs.homeScrollCom.scroll.scrollTo(0 , this.saveY , 0);
+    // this.$refs.homeScrollCom.scrollTo1(0, this.saveY, 0);
+    // this.$refs.homeScrollCom.refreshScroll();
+  },
+  deactivated() {
+    console.log("组件未激活状态");
+    //在组件离开的时候，记录滚动条的位置
+    this.saveY = this.$refs.homeScrollCom.scroll.y;
+    console.log(this.saveY);
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   },
   computed: {
     //显示的goods是哪一个
@@ -157,6 +198,10 @@ export default {
     },
     //回到顶部
     toTop() {
+<<<<<<< HEAD
+=======
+      // console.log("回到顶部");
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       this.$refs.homeScrollCom.scrollTo1(0, 0, 300);
     },
     //取出home页现实的goods数据
@@ -167,9 +212,17 @@ export default {
         pagesize:10
       }
       getGoods(data).then((res) => {
+<<<<<<< HEAD
         this.goods[type].page += 1;
         this.goods[type].list.push(...res.data);
         this.$refs.homeScrollCom.finishpullup();
+=======
+        // console.log(res);
+        this.goods[type].page += 1;
+        this.goods[type].list.push(...res.data);
+        this.$refs.homeScrollCom.finishpullup();
+        console.log(this.$refs.homeScrollCom);
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
         this.isLoadmore = true; //获取到一次数据后isLoadmore 才变为true，才能进行下一次请求
       });
     },
@@ -188,6 +241,7 @@ export default {
       this.$router.push("/category");
     },
     //跳转关键字页面
+<<<<<<< HEAD
     toKeywords() {
       this.$router.push("/keywords");
     },
@@ -197,18 +251,34 @@ export default {
     },
     //点击功能视图的全部，执行的跳转事件
     toFeatureAll(){
+=======
+    Login(){
+      this.$router.push("/login");
+    },
+    //跳转关键字页面
+    toKeywords() {
+      console.log("focus");
+      this.$router.push("/keywords");
+    },
+    //点击功能视图的全部，执行的跳转事件
+    toFeatureAll(){
+      console.log("功能视图组件的全部被点击触发");
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       this.$router.push('/home/feature')
     },
     //切换功能视图横纵向展示事件
     changeDirection() {
       this.parentDirection = !this.parentDirection;
     },
+<<<<<<< HEAD
     //获取购物车数据，调用vuex中actions的数据
     getShopCart(data) {
       if(data != "" && data != null && data != undefined){
         this.$store.dispatch("getShopCart", data);
       }  
     },
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   },
   mounted() {
     // 使用防抖方法，放置图片刷新被多次循环调用，在指定事件内，如果没有图片加载完成，我们在刷新scroll高度
@@ -216,6 +286,10 @@ export default {
     this.$bus.$on(this.bus, () => {
       //当图片加载完成 在GoodsListItem中通过$bus总线 执行 当前方法 goodsImageLoad ,
       //然后对BScroll  进行重新计算高度
+<<<<<<< HEAD
+=======
+      // console.log("aaa");
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       // this.$refs.homeScrollCom.refresh(); // this.$refs.homeScrollCom   =>> 没找到 refresh方法()
       refresh();
     });
@@ -288,9 +362,12 @@ export default {
     width:40%;
     margin-top:25%;
 }
+<<<<<<< HEAD
 .textarea>>>.el-input__inner{
   border-radius: 20px;
   height: 35px;
   padding-top: 2px;
 }
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 </style>

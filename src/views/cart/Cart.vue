@@ -7,7 +7,11 @@
         </div>
         <div slot="center">
           <div class="title">购物车</div>
+<<<<<<< HEAD
           <p class="address">配送至:{{address}}</p>
+=======
+          <p class="address">配送至:{{$store.state.ShippingAddress}}</p>
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
         </div>
         <div slot="right" class="right">
           <!-- el-icon-more -->
@@ -32,6 +36,7 @@
       </div>
       <div>
         <!-- 正常判断购物车数据 ShopCart 为空。。 -->
+<<<<<<< HEAD
         <div class="cart_empty" v-if="!shopCartLength">
           <img :src="urlPath+'/routine/cart_empty.png'" alt />
           <p>您的购物车还没有任何数据，请添加商品</p>
@@ -50,6 +55,43 @@
       <div class="shopBox">....</div>
     </scroll>
     <cart-tab-bar ref="tabBar" @check_all="check_shop_all"></cart-tab-bar>
+=======
+        <div class="cart_empty" v-if="!$store.state.shopCartLength">
+          <img :src="$store.state.urlPath+'/routine/cart_empty.png'" alt />
+          <p>您的购物车还没有任何数据，请添加商品</p>
+        </div>
+        <div v-else class="shop-cart-details">
+          <dl v-for="(item,key) in $store.state.shopCart" :key="key">
+            <dt>
+              <input type="radio" />
+              {{key}}
+            </dt>
+            <dd v-for="(obj,index) in item" :key="index">
+              <img :src="$store.state.urlPath+'/goods/'+obj.img_cover" alt="图片" />
+              <p>
+                title：{{obj.goods_name}}
+                <br />
+              </p>
+
+              <p>
+                规格：{{obj.norm}}
+                <br />
+              </p>
+
+              <p>
+                价格：{{obj.money_now}}
+                <br />
+              </p>
+              数量：{{obj.num}}
+              <br />
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="shopBox">aaaa</div>
+    </scroll>
+    <cart-tab-bar></cart-tab-bar>
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   </div>
 </template>
 
@@ -59,20 +101,29 @@ import NavBar from "components/common/navbar/NavBar";
 import Scroll from "components/contents/scroll/Scroll";
 //内部子组件
 import CartTabBar from "./childComp/CartTabBar";
+<<<<<<< HEAD
 import CartGoods from "./childComp/CartGoods";
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 export default {
   name: "Cart",
   created() {
     //如果用户存在。则网络请求shopCart数据
+<<<<<<< HEAD
     if (this.$store.state.userInfo && this.shopCartLength == 0) {
       // this.getShopCart();
       this.$store.dispatch("getShopCart", this.$store.state.userInfo);
+=======
+    if (this.$store.state.userInfo) {
+      this.getShopCart();
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
     }
   },
   components: {
     NavBar,
     Scroll,
     CartTabBar,
+<<<<<<< HEAD
     CartGoods,
   },
   // beforeRouteEnter(to, from, next) {
@@ -136,6 +187,17 @@ export default {
   
     selectNorm(obj) {
       console.log(obj);
+=======
+  },
+  methods: {
+    pushRouter(path) {
+      console.log(path);
+      this.$router.push(path);
+    },
+    //获取购物车数据，调用vuex中actions的数据
+    getShopCart() {
+      this.$store.dispatch("getShopCart", this.$store.state.userInfo);
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
     },
   },
 };
@@ -148,11 +210,19 @@ export default {
   .cartNavBar {
     background-color: #fff;
     .title {
+<<<<<<< HEAD
       font-size: 18px;
       line-height: 24px;
     }
     .address {
       font-size: 14px;
+=======
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .address {
+      font-size: 10px;
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       line-height: 20px;
       margin: 0 auto;
       max-width: 60%;
@@ -161,13 +231,49 @@ export default {
       text-overflow: ellipsis;
     }
   }
+<<<<<<< HEAD
 
+=======
+  .shop-cart-details {
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    dl {
+      border-bottom: 1px solid #d5d5d5;
+      margin-bottom: 5px;
+      margin-left: 20px;
+    }
+    dt {
+      text-align: left;
+      line-height: 30px;
+      input {
+        margin-right: 20px;
+      }
+    }
+    dd {
+      img {
+        width: 35%;
+        height: inherit;
+      }
+      p.title {
+      }
+      p.price {
+        color: red;
+      }
+    }
+  }
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   .shopBox {
     margin-top: 15px;
     border-radius: 10px;
     background-color: #fff;
     height: 5000px;
   }
+<<<<<<< HEAD
+=======
+  .shop-cart {
+  }
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 }
 body {
   margin: 0;

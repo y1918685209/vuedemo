@@ -36,6 +36,17 @@ export default {
       }
     }
   },
+<<<<<<< HEAD
+=======
+  data() {
+    return {
+      //isActive:false //false 显示黑色图  true 显示粉色图
+      // activeStyle:{color:'black'}
+    };
+  },
+  mounted() {
+  },
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   computed: {
     //通过计算属性来让tabbar的active效果改变
     isActive() {
@@ -47,7 +58,11 @@ export default {
   },
   methods: {
     itemClick() {
+<<<<<<< HEAD
       if(this.path == this.$store.state.SKnavigation) return;
+=======
+      //路由跳转
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       this.$router.push(this.path); //category
       console.log(this.$route.path);
     }

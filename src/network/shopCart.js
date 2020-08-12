@@ -1,5 +1,6 @@
 import { requestPost } from './request'
 export function postShopCart(data = "") {
+<<<<<<< HEAD
     console.log(data);
     //post 请求数据的时候，提交数据用data
     return requestPost({
@@ -14,4 +15,12 @@ export function UpdataShopCart(data = "") {
         url: '/vuedemo/update_shopcart',
         data
     })
+=======
+    return requestPost({
+        url: '/vuedemo/get_shopcart',
+        data:{//post 请求数据的时候，提交数据用data
+            user_id:data
+        }
+    })
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 }

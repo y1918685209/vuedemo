@@ -35,4 +35,9 @@ export function get_jd_category_max(page) {
 //             '升序/降序':'xxx',
 //         }
 //     })
+<<<<<<< HEAD
 // }
+=======
+// }
+
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477

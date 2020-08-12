@@ -13,7 +13,11 @@
             <img slot="item-icon" src="" />
             <div slot="item-text" class='cart'>
               购物车
+<<<<<<< HEAD
               <i>{{shopCartLength}}</i>
+=======
+              <i>{{$store.state.shopCartLength}}</i>
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
             </div>
         </tab-bar-item>
     </tab-bar>
@@ -43,6 +47,7 @@ export default {
   },
   computed: {
     //计算
+<<<<<<< HEAD
     shopCartLength(){
       return this.$store.state.shopCartLength
     },
@@ -52,14 +57,19 @@ export default {
     user(){
       return this.userInfo!= "" && this.userInfo != null && this.userInfo != undefined
     }
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   },
   created() {
     //创建
     // console.log(this.$store.getters.shopCartLength)
+<<<<<<< HEAD
     if ( this.user && this.shopCartLength == 0) {
       // this.getShopCart();
       this.$store.dispatch("getShopCart", this.$store.state.userInfo);
     }
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   },
   activated() {
     //激活

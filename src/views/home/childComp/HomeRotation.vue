@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
     <rotation :interval = "3000" :showIndicator = "true" divID="bannerBox">
+=======
+    <rotation :interval = "1000" :showIndicator = "true" divID="bannerBox">
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
         <rotation-item v-for="(item,index) in cbanners" :key="index">
             <a :href="item.href">
                 <img :src="path+bannerSrc+item.crs" />
@@ -35,6 +39,7 @@ export default {
 </script>
 
 <style scoped>
+<<<<<<< HEAD
     #bannerBox a{
         display:block;
         margin:2% 3%;
@@ -45,4 +50,7 @@ export default {
         width:100%;
         height:100%;
     }
+=======
+
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 </style>

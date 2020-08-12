@@ -59,11 +59,18 @@ export default {
 // 如是想要使用less 建议 去 vue ui视图界面中添加
 .tabControl {
   width: 100%;
+<<<<<<< HEAD
   background: #f8f8f8;
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   font-size: 12px;
   line-height: 40px;
 }
 .tabControl div {
+<<<<<<< HEAD
+=======
+  border-bottom: 1px solid #555555;
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   height: 40px;
 }
 .active {

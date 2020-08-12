@@ -4,17 +4,26 @@
       缓存中会存有数据记录，所以在使用过的时候，会出现数据不进行替换。 
       正常使用中，如果不使用keep-alive,组件在离开的时候会被销毁
     -->
+<<<<<<< HEAD
     <keep-alive :exclude="$store.state.keepExclude">
       <router-view />
     </keep-alive>
     <jd-main-tab-bar v-if="is_jd_tabbar"></jd-main-tab-bar>
     <jx-main-tab-bar v-if="is_jx_tabbar"></jx-main-tab-bar>
+=======
+    <keep-alive :exclude="$store.state.keepExclude" :include="$store.state.keepInclude">
+      <router-view />
+    </keep-alive>
+    <jd-main-tab-bar v-if="$store.state.TabBar.is_jd_TabBar"></jd-main-tab-bar>
+    <jx-main-tab-bar v-if="$store.state.TabBar.is_jx_TabBar"></jx-main-tab-bar>
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   </div>
 </template>
 
 <script>
 import JdMainTabBar from "components/contents/MainTabbar/JdMainTabbar";
 import JxMainTabBar from "components/contents/MainTabbar/JxMainTabbar";
+<<<<<<< HEAD
 import { requestIp } from "network/request";
 export default {
   name: "app",
@@ -57,12 +66,34 @@ export default {
       console.log(newVal, oldVal);
     },
   },
+=======
+export default {
+  name: "app",
+  data() {
+    return {
+    };
+  },
+  components: {
+    JdMainTabBar,
+    JxMainTabBar
+  },
+  mounted() {
+  },
+  created(){
+    console.log(this.$store.state.userInfo);
+  }
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 };
 </script>
 
 <style>
 @import "assets/css/base.css";
+<<<<<<< HEAD
 #app {
   height: 100vh;
+=======
+#app{
+  height:100vh;
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 }
 </style>

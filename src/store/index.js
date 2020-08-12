@@ -18,11 +18,15 @@ const state = {
   //keep-leave
   keepExclude: 'Details,Cart',
   keepInclude: '',
+<<<<<<< HEAD
   shopCartHistory:{},
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   shopCart: {},
   shopCartLength:0,//购物车的数据数量
   loginRecords:'',//进入login的记录
   temp:null,
+<<<<<<< HEAD
   totalNum:0,//支付数量
   totalPayment:0,//支付总价
   ShoppingAddress:'北京市昌平区马池口镇吉利大学',   //配送地址
@@ -30,6 +34,9 @@ const state = {
   SKnavigation:null,//用于记录tabbar的上此 路由路径
   ShopCartMoneyAll:0,//记录购物车所有商品价钱总和
   ShopCartGoodsNum:0,//记录购物车商品总数量
+=======
+  ShippingAddress:'北京市昌平区马池口镇吉利大学'   //配送地址
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
 }
 const x = new Vuex.Store({
   state,      //状态管理数据
@@ -39,3 +46,7 @@ const x = new Vuex.Store({
   modules: {} //模块
 })
 export default x
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477

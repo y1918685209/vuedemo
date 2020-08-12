@@ -19,3 +19,7 @@ export default {
 
 <style scoped>
 </style>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477

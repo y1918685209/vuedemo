@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <tab-bar class="tabbar">
     <tab-bar-item
       v-for="item in tabBarArr"
@@ -7,11 +8,19 @@
       :cstyle="tabbarstyle"
       class="item"
     >
+=======
+  <tab-bar class='tabbar'>
+    <tab-bar-item v-for="item in tabBarArr" :key="item.id" :path="item.path" :cstyle="tabbarstyle" class='item'>
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       <img slot="item-icon" :src="$store.state.urlPath+'/tabbar/'+item.img" />
       <img slot="item-icon-active" :src="$store.state.urlPath+'/tabbar/'+item.activeImg" />
       <div slot="item-text">
         {{item.title}}
+<<<<<<< HEAD
         <i v-if="item.path =='/cart'">{{shopCartLength}}</i>
+=======
+        <i v-if="item.path =='/cart'">{{$store.state.shopCartLength}}</i>
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       </div>
     </tab-bar-item>
   </tab-bar>
@@ -40,6 +49,7 @@ export default {
   created() {
     this.getTabBar();
   },
+<<<<<<< HEAD
   computed: {
     shopCartLength() {
       return this.$store.state.shopCartLength;
@@ -48,12 +58,18 @@ export default {
       return this.$store.state.userInfo;
     },
   },
+=======
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   components: {
     TabBar,
     TabBarItem,
   },
   methods: {
     getTabBar(path = "/jd_tabbar") {
+<<<<<<< HEAD
+=======
+      // return
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
       getTabBar(path).then((res) => {
         this.tabBarArr = [...res.data];
       });
@@ -63,6 +79,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
+<<<<<<< HEAD
 .tabbar .item {
   position: relative;
   div i {
@@ -80,6 +97,25 @@ export default {
     line-height: 16px;
     border-radius: 8px;
     font-size: 10px;
+=======
+.tabbar .item{
+  position:relative;
+  div i{
+    position:absolute;
+    right:0px;
+    bottom:30px;
+    display: block;
+    width:24px;
+    height:16px;
+    background-color:#fff;
+    border:1px solid red;
+    color:red;
+    font-style: normal;
+    text-align: center;
+    line-height: 16px;
+    border-radius:8px;
+    font-size:10px;
+>>>>>>> 2ba4451510f6cca78672af6b7119b5e0daa39477
   }
 }
 </style>
