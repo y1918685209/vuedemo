@@ -26,7 +26,7 @@ export default {
     .slide img{
         width: 100%;
         height:100%;
-        border-radius: 10px;
+        border-radius: 20px;
     }
     .slide a{
         display:block;
