@@ -50,7 +50,7 @@
       </div>
       <div class="shopBox">....</div>
     </scroll>
-    <cart-tab-bar ref="tabBar" @check_all="check_shop_all"></cart-tab-bar>
+    <cart-tab-bar ref="tabBar" @check_all="check_shop_all" @confirmOrder="confirm_goods"></cart-tab-bar>
   </div>
 </template>
 
@@ -201,6 +201,26 @@ export default {
     selectNorm(obj) {
       console.log(obj);
     },
+    confirm_goods(){//确认商品
+      console.log(11);
+      //找到购物车内需要做支付的商品是哪一个
+
+      //直接查找 shopCart 的ischeck = 1的值，添加到data里面，传递到confirm_order
+      //this.$store.state.shopCart
+      let data={}
+      for(let i in this.$store.state.shopCart){
+        this.$store.state.shopCart[i].forEach(item=>{
+          if(item.ischeck == 1){
+          if(data[i]){
+              data[i].push(item)
+            }else{
+              data[i] = [item]
+            }
+          }
+        })
+      }
+      console.log(data);
+    }
   },
 };
 </script>

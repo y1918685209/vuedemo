@@ -8,7 +8,7 @@
     </div>
     <div class="btn">
       <router-link tag="button" to="/setllement" class="settlement">
-        <span class="settlement">去结算({{totalNum}})</span>
+        <span class="settlement" v-on:click="toConfirmOrder">去结算({{totalNum}})</span>
       </router-link>
     </div>
   </div>
@@ -27,8 +27,12 @@ export default {
   },
   methods: {
     checkAll(data){
-      // console.log("被调用");
+      console.log("被调用");
       this.$emit('check_all',data)
+    },
+    toConfirmOrder(){
+      console.log("被点击");
+      this.$emit("confirmOrder");
     }
   },
   watch: {
