@@ -5,15 +5,16 @@ Vue.use(Router)
 const Home = () => import("views/home/Home")
 // const FeaturePage = () => import("views/home/FeaturePage")
 const Category = () => import("views/category/Category")
-// const Cart = () => import("views/cart/Cart")
-const Cart = () => import("views/cart/Cart1")
-const Settlement = () => import("views/cart/settlement/settlement")
+const Cart = () => import("views/cart/Cart")
+const Order = () => import("views/order/confirmOrder")
+const Payment = () => import('views/order/payment')
 const Proflie = () => import("views/profile/Profile")
 const Jx = () => import("views/jx/Jx")
 const Search = () => import("views/search/Search")
 const KeyWords = () => import("views/search/Keywords")
 const Details = () => import('views/details/Details')
 const Login = () => import('views/login/Login')
+
 const routes = [
   {
     path: '',
@@ -83,11 +84,18 @@ const routes = [
     component: Login
   },
   {
-    path:'/setllement',
+    path:'/confirmOrder',
     meta:{
       title:"订单"
     },
-    component:Settlement
+    component:Order
+  },
+  {
+    path:'/payment',
+    meta:{
+      title:"支付"
+    },
+    component:Payment
   }
 ]
 

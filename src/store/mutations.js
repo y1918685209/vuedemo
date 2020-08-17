@@ -10,6 +10,11 @@ export default {
   [types.BACK]() {
     router.go(-1)
   },
+  // [types.ROUTERTO](state,payload){
+  //   state;
+  //   console.log(payload);
+  //   // router.push(data);
+  // },
   //要做的是网络请求---->需要在actions中做分发监控,不然同步数据不会被改变
   //所以要把当前的事件，在actions中进行执行
   [types.POST_SHOPCART](state,payload){
@@ -22,11 +27,21 @@ export default {
       state.shopCartLength = res.data.length;
       //循环，把同一个店铺的东西分组取出来。
       res.data.forEach(item=>{//循环的是所有数据
-        if (state.shopCart[item.shop_name]) {
-          state.shopCart[item.shop_name].push(item)     
-        }else{
-          state.shopCart[item.shop_name] = [item]
+        // if (state.shopCart[item.shop_name]) {
+        //   state.shopCart[item.shop_name].push(item)     
+        // }else{
+        //   state.shopCart[item.shop_name] = [item]
+        // }
+        if(!state.shopCart[item.shop_name]){
+          state.shopCart[item.shop_name] = []
+          state.shopCartHistory[item.shop_name] = []
         }
+        for(let i in item){
+          console.log(item[i])
+        }
+        state.shopCart[item.shop_name].push(item)
+        state.shopCartHistory[item.shop_name].push(item)
+
         //得到选中的商品的总价
         if(item.ischeck == '1'){
           state.totalPayment += item.money_now * item.num
@@ -36,11 +51,17 @@ export default {
         state.ShopCartMoneyAll += item.money_now * item.num
         state.ShopCartGoodsNum += item.num * 1
       })
-      // console.log(state.shopCart);        
+      // console.log(state.shopCart);   
+      state.shopCartHistory = {...state.shopCart}
+      // console.log(state/shopCartHistory,'shopCartHistory')     
     })
   },
   [types.UPDATE_SHOPCART](state,payload){
     console.log("被执行");
-    Vue.set(state.shopCart,payload.shop,payload.val)
+    for(let i in state.shopCart){
+      state.shopCart[i].forEach(item=>{
+        Vue.set(item,payload.ischeck,Number(payload.val).toString())
+      })
+    }
   }
 }

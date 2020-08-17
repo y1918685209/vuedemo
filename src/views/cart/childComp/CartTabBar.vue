@@ -1,14 +1,14 @@
 <template>
   <div id="CartTabBar">
     <div class="select-money">
-      <label for="allCheck" v-on:click="checkAll('all')">
+      <label for="allCheck" v-on:click="$emit(checkAll)">
         <input type="checkbox" id='allCheck' />全选
         </label> 
       <div class="allMoney">合计:{{totalPayment | changePrice("￥")}}</div>
     </div>
     <div class="btn">
-      <router-link tag="button" to="settlement" class="settlement">
-        <span class="settlement">去结算({{totalNum}})</span>
+      <router-link tag="button" to="/confirmOrder" class="settlement">
+        <input style="background-color: red;border: 1px solid red;" type="submit" class="settlement" v-on:click="$emit('confirm')" :value="'去结算('+totalNum+')'" :disabled='totalNum == 0' :class='{disabled:totalNum == 0}'>
       </router-link>
     </div>
   </div>
@@ -22,14 +22,17 @@ export default {
       return this.$store.state.totalPayment
     },
     totalNum(){
-      return this.$store.state.totalNum
+      return this.$store.state.totalNum   
     }
   },
   methods: {
-    checkAll(data){
-      // console.log("被调用");
-      this.$emit('check_all',data)
-    }
+    // checkAll(data){
+    //   // console.log("被调用");
+    //   this.$emit('check_all',data)
+    // },
+    // toConfirmOrder(){
+    //   this.$emit('confirm')
+    // }
   },
   filters: {
     changePrice(val, str = "$") {

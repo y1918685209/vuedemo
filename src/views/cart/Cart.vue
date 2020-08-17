@@ -2,7 +2,7 @@
   <div>
     <scroll id="cartScroll">
       <nav-bar class="cartNavBar" ref="cartNavBar">
-        <div slot="left" class="left" v-on:click="$router.go(-1)">
+        <div slot="left" class="left" v-on:click="$state.commit('BACK')">
           <i class="el-icon-arrow-left"></i>
         </div>
         <div slot="center">
@@ -43,13 +43,14 @@
             :shopName="key"
             ref="cart_goods"
             @checknorm="selectNorm"
+            :goods="item"
             @ischeckshopall="is_check_shop_all"
           ></cart-goods>
         </div>
       </div>
       <div class="shopBox">....</div>
     </scroll>
-    <cart-tab-bar ref="tabBar" @check_all="check_shop_all"></cart-tab-bar>
+    <cart-tab-bar ref="tabBar" @check_all="check_shop_all" @confirm="confirmOrder"></cart-tab-bar>
   </div>
 </template>
 
@@ -60,8 +61,14 @@ import Scroll from "components/contents/scroll/Scroll";
 //内部子组件
 import CartTabBar from "./childComp/CartTabBar";
 import CartGoods from "./childComp/CartGoods";
+import {UpdataShopCart} from "network/shopCart"
 export default {
   name: "Cart",
+  data(){
+    return{
+      payMentData:[]
+    }
+  },
   created() {
     //如果用户存在。则网络请求shopCart数据
     if (this.$store.state.userInfo && this.shopCartLength == 0) {
@@ -81,12 +88,11 @@ export default {
   //   //因为当当前守卫执行的时候，组件实例还没有被创建
   //   next();
   // },
-  // beforeRouteLeave(to, from, next) {
-  //   //导航离开该组件对应的路由时调用
-  //   //可以访问实例`this`
-  //   alert("离开cart");
-  //   next();
-  // },
+  beforeRouteLeave(to, from, next) {
+  //离开cart页面的时候，修改购物车数据
+    this.upDataShopCart();
+    next();
+  },
   computed: {
     shopCartLength() {
       return this.$store.state.shopCartLength;
@@ -100,6 +106,9 @@ export default {
     shopCart() {
       return this.$store.state.shopCart;
     },
+    cart_goods(){
+      return this.$store.state.cart_goods;
+    }
   },
   watch: {
     shopCart(val) {
@@ -109,6 +118,7 @@ export default {
   methods: {
     pushRouter(path) {
       this.$router.push(path);
+      // this.$router.commit('ROUTERTO',path)
     },
     //是否是全选商品
     is_check_shop_all() {
@@ -130,13 +140,141 @@ export default {
       }
     },
     //全选按钮事件
-    check_shop_all() {
-      console.log("我点击了全选按钮");
+    check_shop_all(temp) {
+      //获取全选按钮
+      let allCheck = this.$refs.tabBar.$el.querySelector("#allCheck");
+      //获取4个商品按钮组件
+      let cart_goods = this.$refs.cart_goods;
+      let num = 0;
+      if (temp == "all") {
+        cart_goods.forEach((item) => {
+          let checkbox1 = item.$el.querySelector(
+            ".shop_name input[type=checkbox]"
+          );
+          checkbox1.checked = allCheck.checked;
+          let checkbox2 = item.$el.querySelectorAll(
+            ".radio input[type=checkbox]"
+          );
+          checkbox2.forEach((inputObj) => {
+            inputObj.checked = allCheck.checked;
+          });
+          if (allCheck.checked) {
+            //true
+            //取所有商品价钱总和
+            this.$store.state.totalPayment = this.$store.state.ShopCartMoneyAll;
+            this.$store.state.totalNum = this.$store.state.ShopCartGoodsNum;
+            //取商品数量总和
+          } else {
+            this.$store.state.totalPayment = 0;
+            this.$store.state.totalNum = 0;
+          }
+        });
+      } else if (temp == "shop_name") {
+        console.log("点击了店铺");
+        cart_goods.forEach((item) => {
+          // console.log(item);
+          //商铺全选 1个
+          let checkbox1 = item.$el.querySelector(
+            ".shop_name input[type=checkbox]"
+          );
+          if (checkbox1.checked == true) {
+            num++;
+          }
+        });
+        if (num == cart_goods.length) {
+          this.$refs.tabBar.$el.querySelector(
+            ".select-money input[type=checkbox]"
+          ).checked = true;
+        } else {
+          this.$refs.tabBar.$el.querySelector(
+            ".select-money input[type=checkbox]"
+          ).checked = false;
+        }
+      } else {
+        cart_goods.forEach((item) => {
+          // console.log(item);
+          //商铺全选 1个
+          let checkbox1 = item.$el.querySelector(
+            ".shop_name input[type=checkbox]"
+          );
+          //商铺选择 多个
+          let checkbox2 = item.$el.querySelectorAll(
+            ".radio input[type=checkbox]"
+          );
+          let num1 = 0;
+          checkbox2.forEach((inputObj) => {
+            // console.log(inputObj);
+            console.log(inputObj.checked);
+            if (inputObj.checked == true) {
+              num1++;
+            }
+          });
+          if (num1 == checkbox2.length) {
+            checkbox1.checked = true;
+            num++;
+          } else {
+            checkbox1.checked = false;
+          }
+          //判断是否被全选
+          if (num == cart_goods.length) {
+            this.$refs.tabBar.$el.querySelector(
+              ".select-money input[type=checkbox]"
+            ).checked = true;
+          } else {
+            this.$refs.tabBar.$el.querySelector(
+              ".select-money input[type=checkbox]"
+            ).checked = false;
+          }
+        });
+      }
     },
-  
     selectNorm(obj) {
       console.log(obj);
     },
+    //去结算的方法，beicarttabber组件调用
+    confirmOrder(){
+      //获取cart页面中被选择的订单商品
+      let cart_goods = this.$refs.cart_goods
+      let arr = []
+      cart_goods.forEach(item=>{
+        // 获取每个组件内商品前的复选框组
+        let inputAll = item.$el.querySelectorAll('.radio input')
+        // console.log(inputAll);
+        for(let i = 0; i < inputAll.length; i++){
+          console.log(inputAll[i])
+          if(inputAll[i].checked){
+            console.log(item.goods[i]);
+            //可以定义cart全局的，方便以后自己及组件使用
+            this.payMentData.push(item.goods[i])
+            //方法存要提交的数据
+            arr.push(item.goods[i])
+          }
+        }
+      })
+      this.$router.push('/payment/'+JSON.stringify(arr))
+    },
+    upDataShopCart(){
+      let shopCart = {...this.$store.state.shopCart}
+      let shopCartHistory = {...this.$store.state.shopCartHistory}
+      for(let i in shopCart){
+        for(let j = 0; j < shopCart[i].length; j++){
+          if(
+            shopCart[i][j].ischeck != shopCartHistory[i][j].ischeck ||
+            shopCart[i][j].num != shopCartHistory[i][j].num ||
+            shopCart[i][j].norm != shopCartHistory[i][j].norm
+            ){
+            //请求修改购物车的接口，把数据传递上去，修改购物车数据
+            console.log(shopCart[i][j])
+            let data = {}
+            data.id = shopCart[i][j].id
+            data.num = shopCart[i][j].num
+            data.ischeck = shopCart[i][j].ischeck
+            data.norm = shopCart[i][j].norm
+            UpdataShopCart(data)
+          }
+        }
+      }
+    }
   },
 };
 </script>
