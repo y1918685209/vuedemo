@@ -1,7 +1,7 @@
 <template>
   <div id="CartTabBar">
     <div class="select-money">
-      <label for="allCheck" v-on:click="$emit(checkAll)">
+      <label for="allCheck" v-on:click="checkAll('all')">
         <input type="checkbox" id='allCheck' />全选
         </label> 
       <div class="allMoney">合计:{{totalPayment | changePrice("￥")}}</div>
@@ -26,10 +26,10 @@ export default {
     }
   },
   methods: {
-    // checkAll(data){
-    //   // console.log("被调用");
-    //   this.$emit('check_all',data)
-    // },
+    checkAll(data){
+      // console.log("被调用");
+      this.$emit('check_all',data)
+    },
     // toConfirmOrder(){
     //   this.$emit('confirm')
     // }

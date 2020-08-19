@@ -14,12 +14,15 @@ const state = {
     is_jx_TabBar: false,
   },
   //用户名数据
-  userInfo: 1,
+  userInfo:{
+    id:"13",
+    defaddr:null
+  },
   //keep-leave
-  keepExclude: 'Details,Cart',
+  keepExclude: 'Details,Cart,Payment,ConfirmOrder,Order',
   keepInclude: '',
   shopCartHistory:{},
-  shopCart: {},
+  shopCart: null,
   shopCartLength:0,//购物车的数据数量
   loginRecords:'',//进入login的记录
   temp:null,
@@ -30,6 +33,9 @@ const state = {
   SKnavigation:null,//用于记录tabbar的上此 路由路径
   ShopCartMoneyAll:0,//记录购物车所有商品价钱总和
   ShopCartGoodsNum:0,//记录购物车商品总数量
+  shopCartNameArr:[],
+  indexArr:{},
+  paymentGoods:[]
 }
 const x = new Vuex.Store({
   state,      //状态管理数据

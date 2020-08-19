@@ -32,7 +32,7 @@
       </div>
       <div>
         <!-- 正常判断购物车数据 ShopCart 为空。。 -->
-        <div class="cart_empty" v-if="!shopCartLength">
+        <div class="cart_empty" v-if="!this.shopCart">
           <img :src="urlPath+'/routine/cart_empty.png'" alt />
           <p>您的购物车还没有任何数据，请添加商品</p>
         </div>
@@ -61,20 +61,26 @@ import Scroll from "components/contents/scroll/Scroll";
 //内部子组件
 import CartTabBar from "./childComp/CartTabBar";
 import CartGoods from "./childComp/CartGoods";
-import {UpdataShopCart} from "network/shopCart"
+// import {postShopCart} from "network/shopCart";
+import {UpdataShopCart} from "network/shopCart";
 export default {
   name: "Cart",
   data(){
     return{
-      payMentData:[]
+      payMentData:[],
     }
   },
-  created() {
+  created() {//创建
     //如果用户存在。则网络请求shopCart数据
     if (this.$store.state.userInfo && this.shopCartLength == 0) {
       // this.getShopCart();
-      this.$store.dispatch("getShopCart", this.$store.state.userInfo);
+      this.$store.dispatch("getShopCart", this.$store.state.userInfo.id);
     }
+    // postShopCart(13).then(res=>{
+    //   console.log(res);
+    //   this.shop = res.data;
+    // });
+    console.log(this.$store.state.shopCart);
   },
   components: {
     NavBar,
@@ -112,7 +118,7 @@ export default {
   },
   watch: {
     shopCart(val) {
-      console.log(val);
+      console.log(val)
     },
   },
   methods: {
@@ -275,6 +281,7 @@ export default {
         }
       }
     }
+
   },
 };
 </script>

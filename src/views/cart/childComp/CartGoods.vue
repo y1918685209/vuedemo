@@ -42,7 +42,7 @@
 
 <script>
 export default {
-  name: "",
+  name: "GartGoods",
   props: {
     shopName: {//接收传递过来的购物车中的店铺名
       type: String,
@@ -61,6 +61,9 @@ export default {
     //当前页面需要用到的商品。通过传递过来的计算后的店铺名 从shopCart中获取
     goods() {
       return this.$store.state.shopCart[this.name];
+    },
+    shopCart() {
+      return this.$store.state.shopCart;
     },
   },
   components: {
