@@ -1,6 +1,7 @@
 <template>
     <div>
         支付页面
+        
     </div>
 </template>
 <script>
@@ -23,6 +24,9 @@
         },
         created(){//创建
             // this.shop = JSON.parse(this.$route.params.shop)
+            create_order(13).then(res=>{
+                console.log(res)
+            })
         },
         activated(){//激活
 
