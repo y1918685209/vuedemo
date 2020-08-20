@@ -7,9 +7,10 @@
       <div class="allMoney">合计:{{totalPayment | changePrice("￥")}}</div>
     </div>
     <div class="btn">
-      <router-link tag="button" to="/confirmOrder" class="settlement">
-        <input style="background-color: red;border: 1px solid red;" type="submit" class="settlement" v-on:click="$emit('confirm')" :value="'去结算('+totalNum+')'" :disabled='totalNum == 0' :class='{disabled:totalNum == 0}'>
-      </router-link>
+        <input style="background-color: red;border: 1px solid red;height: 40px;padding:0 10px;
+        border-radius: 20px;" type="submit" class="settlement"
+          v-on:click="$emit('confirm')" :value="'去结算('+totalNum+')'" 
+          :disabled='totalNum == 0' :class='{disabled:totalNum == 0}'>
     </div>
   </div>
 </template>
@@ -28,7 +29,7 @@ export default {
   methods: {
     checkAll(data){
       // console.log("被调用");
-      this.$emit('check_all',data)
+      this.$emit('checkall',data)
     },
     // toConfirmOrder(){
     //   this.$emit('confirm')

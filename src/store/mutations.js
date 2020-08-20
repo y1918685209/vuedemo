@@ -3,7 +3,7 @@ import router from '../router'
 // 解构赋值一个常量
 // import {POST_SHOPCART} from "./mutation-types"
 // 获取shopcart网络请求
-import {postShopCart} from "network/shopCart";
+import { postShopCart } from 'network/shopCart'
 //取所有的常量
 import * as types from "./mutation-types"
 export default {

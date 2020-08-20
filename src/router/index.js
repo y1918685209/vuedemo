@@ -6,7 +6,7 @@ const Home = () => import("views/home/Home")
 // const FeaturePage = () => import("views/home/FeaturePage")
 const Category = () => import("views/category/Category")
 const Cart = () => import("views/cart/Cart")
-const Order = () => import("views/order/confirmOrder")
+const ConfirmOrder = () => import("views/order/confirmOrder")
 const Payment = () => import('views/order/payment')
 const Proflie = () => import("views/profile/Profile")
 const Jx = () => import("views/jx/Jx")
@@ -14,6 +14,7 @@ const Search = () => import("views/search/Search")
 const KeyWords = () => import("views/search/Keywords")
 const Details = () => import('views/details/Details')
 const Login = () => import('views/login/Login')
+const Register = () => import('views/register/register')
 
 const routes = [
   {
@@ -84,19 +85,26 @@ const routes = [
     component: Login
   },
   {
-    path:'/confirmOrder',
+    path:"/register",
+    meta:{
+      title:"注册"
+    },
+    commponent:Register
+  },
+  {
+    path:'/confirm_order/:shop',
     meta:{
       title:"订单"
     },
-    component:Order
+    component:ConfirmOrder
   },
   {
-    path:'/payment',
+    path:"/payment/:order_id",
     meta:{
-      title:"支付"
+      title:"支付页面"
     },
-    component:Payment
-  }
+    component: Payment
+  },
 ]
 
 const routers = new Router({

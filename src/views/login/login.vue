@@ -1,262 +1,235 @@
 <template>
-    <div class="Login">
-      <div class="header">
-          <span @click='$router.go(-1)'><img src="../../assets/img/1/左尖括号.png" alt=""></span>
-          <span>京东登录注册</span>
+  <div id="login">
+    <nav-bar>
+      <div slot="left">
+        <router-link to="/home" class="el-icon-arrow-left" tag="i"></router-link>
       </div>
-      <div v-show="show1" id="home1">
-        <div>
-          <div class="input-content">
-            <el-dropdown class="phone">
-              <span class="el-dropdown-link">
-                +86<i class="el-icon-arrow-down el-icon--right"></i>
-              </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>圣诞岛</el-dropdown-item>
-                <el-dropdown-item>西伯利亚</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <input id="username" placeholder="请输入手机号" type="text">
-          </div>
-          <div class="input-content2">
-            <input id="pwd" placeholder="请输入收到的验证码" type="text">
-            <button>获取验证码</button>
-          </div>
-          <a href="#" class="btn">
-            登录
-          </a>
-          <a href="#" class="btn2">
-            一键登录
-          </a>
-          <div class="btn3">
-            <span class="left" @click="hh">
-              账号密码登录
-            </span>
-            <a href="#" class="right">  
-              手机快速注册
-            </a>
-          </div>
-          <div class="quick-login">
-              <h4>其他登录方式</h4>
-              <p class="way">
-                <a href="#" class="way1">
-                  QQ
-                </a>
-                <a href="#" class="way2">
-                  微信
-                </a>
-              </p>
-          </div>
-          <p class="baomi">
-            <span>未注册的手机号验证后将自动创建京东账号,</span>
-            登录即代表您已同意
-            <a href="#">京东隐私政策</a>
-          </p>
+      <div slot="center">京东登录注册</div>
+    </nav-bar>
+
+    <div class="bigBox">
+      <div v-if="isPhoneLogin">
+        <div class="inputBox">
+          <span :v-model="region" @click="changeRegion">
+            {{region}}
+            <span class="el-icon-arrow-down"></span>
+          </span>
+          <el-input placeholder="请输入手机号" :oninput="changeValue()" v-model="phone" clearable></el-input>
         </div>
-      </div>
-      <div v-show="show2" id="home2">
-        <div>
-          <div class="input-content">
-            <input id="username" placeholder="用户名/邮箱/手机号" type="text">
-          </div>
-          <div class="input-content2">
-            <input id="pwd" placeholder="请输入密码" type="text">
-            <button>忘记密码</button>
-          </div>
-          <a href="#" class="btn">
-            登录
-          </a>
-          <a href="#" class="btn2">
-            一键登录
-          </a>
-          <div class="btn3">
-            <span class="left" @click="hh2">
-              短信验证码登录
-            </span>
-            <a href="#" class="right">  
-              手机快速注册
-            </a>
-          </div>
-          <div class="quick-login">
-              <h4>其他登录方式</h4>
-              <p class="way">
-                <a href="#" class="way1">
-                  QQ
-                </a>
-                <a href="#" class="way2">
-                  微信
-                </a>
-              </p>
-          </div>
-          <p class="baomi">
-            登录即代表您已同意
-            <a href="#">京东隐私政策</a>
-          </p>
+        <div class="inputBox">
+          <el-input
+            placeholder="请输入收到的验证码"
+            maxlength="6"
+            :oninput="changeValue()"
+            v-model="code"
+            clearable
+          ></el-input>|
+          <el-button :disabled="isCodeDisable">获取验证码</el-button>
         </div>
+        <el-button type="danger"  :disabled="isDisable">登录</el-button>
       </div>
+      <div v-else>
+        <div class="inputBox">
+          <el-input placeholder="用户名/邮箱/手机号" v-model="phoneName" clearable></el-input>
+        </div>
+        <div class="inputBox">
+          <el-input placeholder="请输入密码" show-password v-model="password" clearable></el-input>|
+          <el-button>忘记密码</el-button>
+        </div>
+        <el-button type="danger" @click="userClick" v-if="phoneName && password">登录</el-button>
+        <el-button type="danger" v-else disabled>登录</el-button>
+      </div>
+      <el-button type="danger" plain @click="popUpBox('暂不支持!','使用此功能，请安装最新版京东APP','warning')">一键登录</el-button>
+      <p>
+        <span style="width: 50%;text-align: left;float:left;" class="left" @click="isPhoneLogin = !isPhoneLogin">
+          {{isPhoneLogin?'账号密码登录':'短信验证码登录'}}
+        </span>
+        <router-link style="width: 50%;text-align: right;float:right;" class="right" to="/home" tag="span">手机快速注册</router-link>
+      </p>
+      <div class="striping">
+        <h4>其他方式</h4>
+      </div>
+      <p class="other">
+        <a>
+          <i class="el-icon-potato-strips"></i>
+          <div>QQ</div>
+        </a>
+        <a>
+          <i class="el-icon-ice-drink"></i>
+          <div>微信</div>
+        </a>
+      </p>
+      <p>
+        <span v-if="isPhoneLogin">未注册的手机号验证后将自动创建京东账号, 登录即代表您已同意</span>
+        <span v-else>登录即代表您已同意</span>
+        <a href="http://106.12.85.17:8090/app/help/private_policy.html">京东隐私政策</a>
+      </p>
     </div>
+  </div>
 </template>
+
 <script>
-  export default {
-    name: "Login",
-    data() {
-      return {
-        show1:true,
-        show2:false
+import navBar from "components/common/navbar/NavBar";
+import {register,land,autoLand} from 'network/user'
+export default {
+  name: "Login",
+  data() {
+    return {
+      region: "+86",
+      phone: "",
+      code: "",
+      phoneName: "",
+      password: "",
+      isPhoneLogin: true,
+      isCodeDisable: true,
+      isDisable: true,
+    };
+  },
+  components: {
+    navBar,
+  },
+  computed: {},
+  created() {
+    register({
+      telphone:"13112345688",
+      password:"1234567",
+    }).then(res=>{
+      console.log(res);
+    })
+    land({//account 用户登录
+      actionKey:"account", 
+      username:"Mr.yang",
+      password:"987654321"
+    }).then(res=>{
+      console.log(res);
+      console.log(res.data.user.autocode);
+      //根据获取到的 登录码，在从新获取下数据
+      autoLand({
+        autocode:res.data.user.autocode
+      }).then(res=>{
+        console.log(res)
+      })
+    })
+    
+  },
+  mounted() {},
+  methods: {
+    changeRegion() {
+      alert("aaa");
+    },
+    changeValue() {
+      let res = /^1[3|4|5|7|8][0-9]{9}$/;
+      if (this.phone && this.phone.length == 11 && res.test(this.phone)) {
+        this.isCodeDisable = false;
+      } else {
+        this.isCodeDisable = true;
+      }
+      if (!this.isCodeDisable && this.code) {
+        this.isDisable = false;
+      } else {
+        this.isDisable = true;
       }
     },
-    methods:{
-      hh(){
-       this.show1 =  false
-       this.show2 = true
-      },
-      hh2(){
-        this.show1 =  true
-        this.show2 = false
+    // 一键登录点击事件
+    popUpBox(t, m, ty) {
+      this.$notify({
+        title: t,
+        message: m,
+        type: ty,
+      });
+    },
+  },
+};
+</script>
+<style lang='less' scoped>
+#login {
+  background-color: #fff;
+  padding-top: 50px;
+  height: calc(100vh - 50px);
+  .bigBox {
+    width: 90%;
+    margin: 0 auto;
+    .inputBox {
+      display: flex;
+      line-height: 56px;
+      border-bottom: 1px solid rgb(223, 223, 223);
+      color: black;
+      span {
+        flex: 1;
+      }
+      .el-input {
+        flex: 4;
+      }
+      .el-button {
+        height: auto;
+        color: #e2231a;
+        border: none;
+        flex: 1;
+      }
+      .el-button.is-disabled {
+        color: #c0c4cc;
+      }
+    }
+    p {
+      min-height: 40px;
+      line-height: 24px;
+      color: rgb(172, 172, 172);
+    }
+    .striping {
+      margin-top: 20%;
+      border-top: 1px solid rgb(182, 182, 182);
+      h4 {
+        color: rgba(0, 0, 0, 0.2);
+        width: 36%;
+        margin: -0.6rem auto 0;
+        background: #fff;
+        text-align: center;
+      }
+    }
+    .other a {
+      display: inline-block;
+      width: 30%;
+      i {
+        font-size: 26px;
+        padding: 10%;
+        background-color: rgb(238, 251, 255);
+        color: rgb(78, 19, 187);
+        border-radius: 50px;
+        margin-bottom: 3%;
       }
     }
   }
-</script>
+}
+</style>
 
-<style scoped>
-.Login{
-  padding:0 7%;
+<style lang='less'>
+.el-notification {
+  width: 92%;
+  background-color: black;
+  .el-notification__title {
+    text-align: left;
+    color: white;
+  }
+  .el-notification__content {
+    color: white;
+  }
 }
-.header{
-    height: 44px;
-    line-height: 44px;
-    background: #fff;
-    font-size: 17px;
-    z-index: 999;
+.el-input {
+  width: 72%;
+  .el-input__inner {
+    border: 1px solid transparent;
+    padding-left: 0;
+  }
 }
-.header span img{
-  float:left;
-  margin-top:14px;
+.el-button {
+  width: 100%;
+  border-radius: 50px;
+  margin: 3% 0;
+  height: 50px;
 }
-.input-content{
-  margin-top:5%;
-  padding:5% 0;
-  border-bottom: .01rem solid #efefef;
-}
-.input-content .phone{
-    position: absolute;
-    left: 30px;
-    line-height:25px;
-}
-.input-content #username{
-  width:100%;
-  border:0;
-  font-size:15px;
-  height:100%;
-  outline: none;
-}
-#home1 .input-content #username{
-    padding-left:20%;
-    width:80%;
-}
-.input-content2{
-  padding:10% 0;
-  border-bottom: .01rem solid #efefef;
-  margin-bottom:5%;
-}
-.input-content2 button{
-  border: none;
-  border-left: 1px solid #ccc;
-  background: #fff;
-  font-size:15px;
-  border-radius: 0;
-  color: #848689;
-  padding-left:5%;
-  float:right;
-  outline: none;
-}
-.input-content2 #pwd{
-  width:50%;
-  float:left;
-  border:0;
-  font-size:15px;
-  height:100%;
-  outline: none;
-}
-.input-content2 span{
-  float:right
-}
-.btn{
-  width:100%;
-  background-color:#ffbcb3;
-  display:block;
-  height:3rem;
-  line-height:3rem;
-  color:#fff;
-  border-radius: 25rem;
-  text-decoration:none;
-}
-.btn2{
-  width:100%;
-  border: 2px solid #ffbcb3;
-  display:block;
-  height:3rem;
-  border-radius: 25rem;
-  line-height:3rem;
-  color:#ffbcb3;
-  text-decoration:none;
-  margin-top:1rem;
-}
-.btn3{
-  margin-top:5%;
-}
-.btn3 .left{
-  color: rgba(0,0,0,.4);
-  font-size:14px;
-  width:30%;
-  float:left;
-}
-.btn3 .right{
-  color: rgba(0,0,0,.4);
-  text-decoration:none;
-  float:right;
-  width:30%;
-  font-size:14px;
-}
-.quick-login{
-  margin-top:40%;
-  color: rgba(0,0,0,.2);
-  border-top: 1px solid rgba(0,0,0,.1);
-}
-.quick-login h4{
-  margin: -.5rem auto 0;
-  width:50%;
-  background: #fff;
-  font-size:12px;
-}
-.quick-login .way{
-  text-align:center;
-  margin-top:10%;
-  margin-bottom:3%;
-}
-.quick-login .way a{
-    color: rgba(0,0,0,.4);
-    background-size: 100% auto;
-    display: inline-block;
-    padding-top: 18%;
-    width:15%;
-    text-decoration:none;
-    margin:0 5%;
-    background-repeat: no-repeat;
-}
-.quick-login .way .way1{
-  background-image:url("../../assets/img/1/qq.png");
-}
-.quick-login .way .way2{
-  background-image:url("../../assets/img/1/wx.png");
-}
-.baomi{
-  text-align: center;
-  font-size: .13rem;
-  color: rgba(0,0,0,.3);
-  margin-top: .15rem;
-}
-.baomi a{
-  text-decoration:none;
+.el-button--danger.is-plain {
+  margin-left: 0;
+  background-color: #fff;
+  border-color: rgb(224, 60, 60);
 }
 </style>

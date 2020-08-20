@@ -2,7 +2,7 @@
   <div>
     <scroll id="cartScroll">
       <nav-bar class="cartNavBar" ref="cartNavBar">
-        <div slot="left" class="left" v-on:click="$state.commit('BACK')">
+        <div slot="left" class="left" v-on:click="$store.commit('BACK')">
           <i class="el-icon-arrow-left"></i>
         </div>
         <div slot="center">
@@ -50,7 +50,7 @@
       </div>
       <div class="shopBox">....</div>
     </scroll>
-    <cart-tab-bar ref="tabBar" @check_all="check_shop_all" @confirm="confirmOrder"></cart-tab-bar>
+    <cart-tab-bar ref="tabBar" @checkall="check_shop_all" @confirm="confirmOrder"></cart-tab-bar>
   </div>
 </template>
 
@@ -257,7 +257,7 @@ export default {
           }
         }
       })
-      this.$router.push('/payment/'+JSON.stringify(arr))
+      this.$router.push("/confirm_order/" + JSON.stringify(arr));
     },
     upDataShopCart(){
       let shopCart = {...this.$store.state.shopCart}
@@ -276,6 +276,7 @@ export default {
             data.num = shopCart[i][j].num
             data.ischeck = shopCart[i][j].ischeck
             data.norm = shopCart[i][j].norm
+            //执行网络请求
             UpdataShopCart(data)
           }
         }
