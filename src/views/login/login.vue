@@ -40,11 +40,11 @@
         <el-button type="danger" v-else disabled>登录</el-button>
       </div>
       <el-button type="danger" plain @click="popUpBox('暂不支持!','使用此功能，请安装最新版京东APP','warning')">一键登录</el-button>
-      <p>
+        <p>
         <span style="width: 50%;text-align: left;float:left;" class="left" @click="isPhoneLogin = !isPhoneLogin">
           {{isPhoneLogin?'账号密码登录':'短信验证码登录'}}
         </span>
-        <router-link style="width: 50%;text-align: right;float:right;" class="right" to="/home" tag="span">手机快速注册</router-link>
+        <router-link style="width: 50%;text-align: right;float:right;" class="right" to="/register/0" tag="span">手机快速注册</router-link>
       </p>
       <div class="striping">
         <h4>其他方式</h4>
@@ -69,8 +69,8 @@
 </template>
 
 <script>
-import navBar from "components/common/navbar/NavBar";
-import {register,land,autoLand} from 'network/user'
+import NavBar from "components/common/navbar/NavBar";
+import {land,autoLand} from 'network/user'
 export default {
   name: "Login",
   data() {
@@ -86,16 +86,11 @@ export default {
     };
   },
   components: {
-    navBar,
+    NavBar,
   },
   computed: {},
   created() {
-    register({
-      telphone:"13112345688",
-      password:"1234567",
-    }).then(res=>{
-      console.log(res);
-    })
+    
     land({//account 用户登录
       actionKey:"account", 
       username:"Mr.yang",

@@ -85,11 +85,32 @@ const routes = [
     component: Login
   },
   {
-    path:"/register",
-    meta:{
-      title:"注册"
+    path: '/register/:code',
+    meta: {
+      title: "注册"
     },
-    commponent:Register
+    component: Register,
+    children:[]
+  },
+  {
+    path:'/area_code',
+    component:()=> import('views/area_code/AreaCode')
+  },
+  {
+    path: '/shortMsg/:data',
+    name: 'shortMsg',
+    meta: {
+      title: "获取短信"
+    },
+    component: () => import('views/register/child/ShortMessage')
+  },
+  {
+    path: '/setpwd/:data',
+    name: 'setpwd',
+    meta: {
+      title: "设置密码"
+    },
+    component: () => import('views/register/child/SetPwd')
   },
   {
     path:'/confirm_order/:shop',
