@@ -8,6 +8,18 @@
         <div slot="center">确认订单</div>
         <div slot="right"></div>
       </nav-bar>
+      <div class='address'>
+        <div v-if='$store.state.userInfo.defaddr == null'>
+          <button>+ 请添加地址</button>
+        </div>
+        <div v-else class='selectAddr'>
+          配送地址
+          <h2>{{'于佳奇'}} <span>{{'15145972407' | changeTel}}</span></h2>
+          <div>
+            黑龙江省,绥化市,安达市xxxx
+          </div> 
+        </div>
+      </div>
       {{shop}}
       <button @click="payment">确认订单-跳转支付页面-也可以打开一个模态框 进行支付</button>
     </scroll>

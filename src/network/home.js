@@ -26,7 +26,6 @@ export function get_jd_category_max(page) {
         }
     })
 }
-
 // export function get_goods(data){
 //     return request({
 //         url:'/vuedemo/get_goods',

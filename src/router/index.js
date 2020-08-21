@@ -14,7 +14,7 @@ const Search = () => import("views/search/Search")
 const KeyWords = () => import("views/search/Keywords")
 const Details = () => import('views/details/Details')
 const Login = () => import('views/login/Login')
-const Register = () => import('views/register/register')
+const Register = () => import('views/register/Register')
 
 const routes = [
   {

@@ -198,7 +198,7 @@
 import NavBar from "components/common/navbar/NavBar";
 import { regPhone} from "network/user";
 export default {
-  name: "Register",
+  name: "",
   data() {
     return {
       show: true,//模态框是否显示

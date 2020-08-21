@@ -15,8 +15,15 @@ const state = {
   },
   //用户名数据
   userInfo:{
-    id:"13",
-    defaddr:null
+    defaddr:{id:20,user_id:'13',tel:"电话",addr:'省,市,县(乡,街道),具体地址',name:'接收人',default:1},
+    // defaddr:null,
+    id:'13',
+    email:'',
+    name:'',
+    qq:'',
+    wx:'',
+    img:"",
+    tel:'',
   },
   //keep-leave
   keepExclude: 'Details,Cart,Payment,ConfirmOrder,Order',
@@ -35,7 +42,7 @@ const state = {
   ShopCartGoodsNum:0,//记录购物车商品总数量
   shopCartNameArr:[],
   indexArr:{},
-  paymentGoods:[]
+  area_code: "86",//国际区号
 }
 const x = new Vuex.Store({
   state,      //状态管理数据

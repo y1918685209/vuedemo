@@ -25,7 +25,7 @@
 }
 </style>
 <template>
-  <div id="SetPwd"> 
+  <div id="SetPwd">
     <nav-bar>
       <div slot="left">
         <i class="el-icon-arrow-left" @click="$router.go(-1)"></i>
