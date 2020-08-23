@@ -201,7 +201,6 @@ export default {
   name: "",
   data() {
     return {
-      show: true,//模态框是否显示
       phone: "",
       phone_area_code: null, //国际区号
       regTel: true,
@@ -216,6 +215,9 @@ export default {
   computed: {
     area_code(){
       return this.$store.state.area_code
+    },
+    show(){
+      return this.$store.state.registreDialogShow
     }
   },
   watch: {
@@ -228,7 +230,7 @@ export default {
       console.log;
     },
   },
-  methods: {
+ methods: {
     next() {
       var data = { telphone: this.phone };
       regPhone(data).then((res) => {
@@ -264,23 +266,27 @@ export default {
       }
       this.warning = false;
     },
-    checkDialog(val) {
-      if (val == "ok") {
-        this.show = false;
-        return;
-      }
-      this.$router.go(-1);
+    checkDialog(to,from,next) {
+        //此处改变的是状态管理内的值，所以在页面开来的时候，需要把值重新赋值为true
+        this.$store.state.registreDialogShow = false;
+        console.log(from.path);
+        console.log(to.path);
+        next();
     },
-   
+  },
+  beforeRouteLeave (to, from, next) {
+      this.$store.state.registreDialogShow = true
+      if(to.path == '/area_code') this.$store.state.routerHistory = from.path
+      next()
   },
   created() {
     //创建
-    if(this.$route.params.code != 0 ){
-      this.show = false;
+    // if(this.$route.params.code != 0 ){
+    //   this.show = false;
       // this.$route.path = '/register/0'
       // 当前页面中的区号，要被传递过来的区号替换
       // this.area_code = this.$route.params.code
-    }
+    // }
     // else{
     //   this.area_code = 86
     // }

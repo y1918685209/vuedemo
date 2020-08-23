@@ -8,7 +8,8 @@ module.exports={
                 "components":"@/components",
                 "views":"@/views",
                 "network":"@/network",
-                "common":"@/common"//  common指的是公共的js文件夹
+                "common":"@/common",//  common指的是公共的js文件夹
+                "store":"@/store"
             }
         },
         // 对服务运行添加代理服务

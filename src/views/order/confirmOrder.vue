@@ -14,7 +14,7 @@
         </div>
         <div v-else class='selectAddr'>
           配送地址
-          <h2>{{'于佳奇'}} <span>{{'15145972407' | changeTel}}</span></h2>
+          <h2>{{'彭于晏'}} <span>{{'15145972407' | changeTel}}</span></h2>
           <div>
             黑龙江省,绥化市,安达市xxxx
           </div> 

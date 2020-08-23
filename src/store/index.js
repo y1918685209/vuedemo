@@ -43,6 +43,8 @@ const state = {
   shopCartNameArr:[],
   indexArr:{},
   area_code: "86",//国际区号
+  registreDialogShow:true,//用于控制注册页面，注册协议的显示
+  routerHistory:"/home",//记录一下离开页面时的路由地址 
 }
 const x = new Vuex.Store({
   state,      //状态管理数据
