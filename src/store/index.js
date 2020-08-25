@@ -14,17 +14,18 @@ const state = {
     is_jx_TabBar: false,
   },
   //用户名数据
-  userInfo:{
-    defaddr:{id:20,user_id:'13',tel:"电话",addr:'省,市,县(乡,街道),具体地址',name:'接收人',default:1},
-    // defaddr:null,
-    id:'13',
-    email:'',
-    name:'',
-    qq:'',
-    wx:'',
-    img:"",
-    tel:'',
-  },
+  // userInfo:{
+    // defaddr:{id:20,user_id:'13',tel:"电话",addr:'省,市,县(乡,街道),具体地址',name:'接收人',default:1},
+    // // defaddr:null,
+    // id:'13',
+    // email:'',
+    // name:'',
+    // qq:'',
+    // wx:'',
+    // img:"",
+    // tel:'',
+  // },
+  userInfo:null,
   //keep-leave
   keepExclude: 'Details,Cart,Payment,ConfirmOrder,Order',
   keepInclude: '',
@@ -45,6 +46,7 @@ const state = {
   area_code: "86",//国际区号
   registreDialogShow:true,//用于控制注册页面，注册协议的显示
   routerHistory:"/home",//记录一下离开页面时的路由地址 
+  loginHistory:"/home",
 }
 const x = new Vuex.Store({
   state,      //状态管理数据

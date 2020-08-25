@@ -1,11 +1,11 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav-bar" >
-      <div slot="left" v-on:click="toCategory"><img src="../../assets/img/1/分类.png" alt=""></div>
+      <div slot="left" v-on:click="$store.commit('ROUTERTO','/category')"><img src="../../assets/img/1/分类.png" alt=""></div>
       <div slot="center">
-        <el-input class="textarea" v-model="input" placeholder="请输入内容" v-on:focus="toKeywords"></el-input>
+        <el-input class="textarea" v-model="input" placeholder="请输入内容" v-on:focus="routerTo('/keywords')"></el-input>
       </div>
-      <div slot="right" @click="Login">登录</div>
+      <div slot="right" @click="routerTo('/login')">登录</div>
     </nav-bar>
     <scroll
       class="homeContent"
@@ -18,7 +18,7 @@
       <!-- 轮播图 -->
       <home-rotation :cbanners="banners"></home-rotation>
       <!-- 功能视图 -->
-      <home-feature :cfeature="feature" @cfeatureAll='toFeatureAll'></home-feature>
+      <home-feature :cfeature="feature" @cfeatureAll="routerTo('home/feature')"></home-feature>
       <div>
         <button style="width:100%" @click="changeDirection">改变商品数据排列</button>
       </div>
@@ -52,6 +52,7 @@ import HomeFeature from "./childComp/HomeFeature";
 // import {getHomeBanner} from "network/home"
 import { debounce } from "common/utils";
 //引入其他文件
+import {ROUTERTO} from "store/mutation-types"
 //引入网络请求模块部分组件/方法
 import { getHomeBanner, getFeature} from "network/home";
 //取商品数据
@@ -184,20 +185,17 @@ export default {
       this.tabCurrentType = type;
     },
     //跳转category页面
-    toCategory() {
-      this.$router.push("/category");
-    },
-    //跳转关键字页面
-    toKeywords() {
-      this.$router.push("/keywords");
-    },
+    // toCategory() {
+    //   this.$router.push("/category");
+    //   this.$router.commit(ROUTERTO);
+    // },
     //跳转关键字页面
     Login(){
       this.$router.push("/login");
     },
-    //点击功能视图的全部，执行的跳转事件
-    toFeatureAll(){
-      this.$router.push('/home/feature')
+    //路由跳转
+    routerTo(path) {
+      this.$store.commit(ROUTERTO, path);
     },
     //切换功能视图横纵向展示事件
     changeDirection() {
@@ -209,6 +207,12 @@ export default {
         this.$store.dispatch("getShopCart", data);
       }  
     },
+    //当离开页面的时候
+    beforeRouteLeave(to, from, next) {
+      //当页面离开的时候，如果访问的路由时/area_code 则记录当前路由地址
+      if (to.path == "/login") this.$store.state.loginHistory = from.path;
+      next();
+  },
   },
   mounted() {
     // 使用防抖方法，放置图片刷新被多次循环调用，在指定事件内，如果没有图片加载完成，我们在刷新scroll高度

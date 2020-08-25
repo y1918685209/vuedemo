@@ -266,18 +266,22 @@ export default {
       }
       this.warning = false;
     },
-    checkDialog(to,from,next) {
+    checkDialog(val) {
+      if (val == "ok") {
         //此处改变的是状态管理内的值，所以在页面开来的时候，需要把值重新赋值为true
         this.$store.state.registreDialogShow = false;
-        console.log(from.path);
-        console.log(to.path);
-        next();
+        return;
+      }
+      this.$router.go(-1);
     },
   },
-  beforeRouteLeave (to, from, next) {
-      this.$store.state.registreDialogShow = true
-      if(to.path == '/area_code') this.$store.state.routerHistory = from.path
-      next()
+ beforeRouteLeave (to, from, next) {
+    // ...
+    console.log(to.path);
+    //离开页面的时候，需要把 registreDialogShow 重新赋值为true 下次打开页面的时候，协议显示
+    this.$store.state.registreDialogShow = true    
+    if(to.path == '/area_code') this.$store.state.areacodeHistory = from.path
+    next()
   },
   created() {
     //创建

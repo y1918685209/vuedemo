@@ -1,5 +1,8 @@
 <template>
-  <div>我的</div>
+  <div>
+    <h1>我的</h1>
+    <div v-on:click="$store.commit('ROUTERTO','/login')">去登陆</div>
+  </div>
 </template>
 <script>
 export default {
@@ -12,7 +15,13 @@ export default {
     return {};
   },
   created(){
-    if(!this.$root.$children[0].userId) this.$router.push('/login')
+   
+  },
+  //当页面离开的时候
+  beforeRouteLeave(to, from, next) {
+      //如果去的页面是login,则记录页面
+      if (to.path == "/login") this.$store.state.loginHistory = from.path;
+      next();
   }
 };
 </script>

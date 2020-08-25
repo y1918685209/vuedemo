@@ -76,6 +76,7 @@ export default {
       })
     }
   },
+  //国际区号页面 回退页面事件
   [types.AREA_CODE_BACK](state,payload){
     if(payload == 0){//0 用于 国际区号页面 返回到 注册页面
         //参数 == 0 的时候 国际区号 回到初始值
@@ -86,6 +87,11 @@ export default {
         state.registerDialogShow = false
     }
     router.go(-1);
+  },
+  //用于路由跳转
+  [types.ROUTERTO](state,payload){
+    state;
+    router.push(payload)
   }
 }
 

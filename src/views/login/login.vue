@@ -1,8 +1,9 @@
 <template>
   <div id="login">
     <nav-bar>
-      <div slot="left">
-        <router-link to="/home" class="el-icon-arrow-left" tag="i"></router-link>
+       <div slot="left">
+        <!--在login登陆页面 返回的时候，不能使用-1进行返回-->
+        <i class="el-icon-arrow-left" @click="$router.push($store.state.loginHistory)"></i>
       </div>
       <div slot="center">京东登录注册</div>
     </nav-bar>
@@ -103,18 +104,15 @@ export default {
         actionKey: "account",
         username: this.phoneName,
         password: this.password,
-        // area_code:this.$store.state.area_code
       }).then((res) => {
         console.log(res);
-        
-        //渲染用户 可以单独做一个方法。因为后续 自动登录也需要渲染用户信息
+        //渲染用户，可以单独做一个方法，因为后续，自动登录也需要渲染用户信息
         this.$store.state.userInfo = res.data.user
-        //渲染用户默认配送地址
+        //获取用户配送地址
         this.$store.state.userInfo.defaddr = res.data.defaddr
-        //跳转指定页面(从哪里来。回哪里去。。。)
+        //跳转指定页面(从哪里来回哪里去)
 
         //本地存储存数据
-        this.setLocalStorageAutoCode(res.data.user.autocode)
 
         this.$router.push(this.$store.state.loginHistory)
       });
@@ -147,6 +145,7 @@ export default {
     },
   },
   created(){
+    this.setLocalStorageAutoCode()
   },
   beforeRouteLeave(to, from, next) {
     //当页面离开的时候，如果访问的路由时/area_code 则记录当前路由地址

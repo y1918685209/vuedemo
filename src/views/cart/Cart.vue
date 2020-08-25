@@ -95,9 +95,11 @@ export default {
   //   next();
   // },
   beforeRouteLeave(to, from, next) {
-  //离开cart页面的时候，修改购物车数据
-    this.upDataShopCart();
-    next();
+      if (to.path == "/login") this.$store.state.loginHistory = from.path;
+      
+      //离开cart页面的时候，修改购物车数据
+      if(this.$store.state.userInfo) this.upDataShopCart();
+      next();
   },
   computed: {
     shopCartLength() {
