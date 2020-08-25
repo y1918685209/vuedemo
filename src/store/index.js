@@ -29,7 +29,7 @@ const state = {
   //keep-leave
   keepExclude: 'Details,Cart,Payment,ConfirmOrder,Order',
   keepInclude: '',
-  shopCartHistory:{},
+  shopCartHistory:null,
   shopCart: null,
   shopCartLength:0,//购物车的数据数量
   loginRecords:'',//进入login的记录

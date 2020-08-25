@@ -5,7 +5,14 @@
       <div slot="center">
         <el-input class="textarea" v-model="input" placeholder="请输入内容" v-on:focus="routerTo('/keywords')"></el-input>
       </div>
-      <div slot="right" @click="routerTo('/login')">登录</div>
+      <div slot="right">
+        <span v-if='!$store.state.userInfo' @click="routerTo('/login')">
+            登录
+        </span>
+         <span class="el-icon-user-solid" v-else @click="routerTo('/profile')">
+            
+        </span>
+      </div>
     </nav-bar>
     <scroll
       class="homeContent"
@@ -52,11 +59,12 @@ import HomeFeature from "./childComp/HomeFeature";
 // import {getHomeBanner} from "network/home"
 import { debounce } from "common/utils";
 //引入其他文件
-import {ROUTERTO} from "store/mutation-types"
+import {ROUTERTO,SET_USERINFO} from "store/mutation-types"
 //引入网络请求模块部分组件/方法
 import { getHomeBanner, getFeature} from "network/home";
 //取商品数据
 import { getGoods} from "network/goods";
+import { autoLand } from "network/user";
 export default {
   name: "Home",
   data() {
@@ -111,7 +119,9 @@ export default {
     this.getFeature(1);
     this.getGoodsMax("recommend");
     this.getGoodsMax("news");
-    this.getShopCart(this.$store.state.userInfo);
+    if (!this.$store.state.userInfo) {
+      this.auto_code();
+    }
   },
   activated() {
     //在组件激活的时候，调整滚动条的位置。
@@ -207,12 +217,18 @@ export default {
         this.$store.dispatch("getShopCart", data);
       }  
     },
-    //当离开页面的时候
-    beforeRouteLeave(to, from, next) {
-      //当页面离开的时候，如果访问的路由时/area_code 则记录当前路由地址
-      if (to.path == "/login") this.$store.state.loginHistory = from.path;
-      next();
-  },
+    auto_code(){
+      let path = window.location.origin + "/jd";
+      let autocode = window.localStorage.getItem(path);
+      autoLand({
+        autocode:autocode 
+      }).then((res) => {
+        console.log(res);
+        if (res.code != 200) return;
+        this.$store.commit(SET_USERINFO,res)
+        this.getShopCart(res.data.user.id);
+      });
+    }
   },
   mounted() {
     // 使用防抖方法，放置图片刷新被多次循环调用，在指定事件内，如果没有图片加载完成，我们在刷新scroll高度
@@ -223,6 +239,12 @@ export default {
       // this.$refs.homeScrollCom.refresh(); // this.$refs.homeScrollCom   =>> 没找到 refresh方法()
       refresh();
     });
+  },
+   //当离开页面的时候
+  beforeRouteLeave(to, from, next) {
+    //当页面离开的时候，如果访问的路由时/area_code 则记录当前路由地址
+    if (to.path == "/login") this.$store.state.loginHistory = from.path;
+    next();
   },
   filters: {
     changePrice: (data, str) => {
