@@ -3,21 +3,18 @@
     <scroll class="scroll">
       <nav-bar>
         <div slot="left">
-          <i class="el-icon-arrow-left" v-on:click="$store.commit('BACK')"></i>
+          <i class="el-icon-arrow-left"></i>
         </div>
         <div slot="center">确认订单</div>
         <div slot="right"></div>
       </nav-bar>
       <div class='address'>
-        <div v-if='$store.state.userInfo.defaddr == null'>
-          <button>+ 请添加地址</button>
-        </div>
-        <div v-else class='selectAddr'>
-          配送地址
-          <h2>{{'彭于晏'}} <span>{{'15145972407' | changeTel}}</span></h2>
-          <div>
-            黑龙江省,绥化市,安达市xxxx
-          </div> 
+        <div v-if='$store.state.ShoppingAddress == null'>
+          <button @click="$store.commit('ROUTERTO','/newAddr/0')">+ 请添加地址</button>
+        </div> 
+        <div v-else class='selectAddr' @click="$store.commit('ROUTERTO','/allAddr')">
+          <h2>{{address.takeover_name}} <span>{{ address.takeover_tel | changeTel}}</span></h2>
+          <p>{{address.takeover_addr}}</p>
         </div>
       </div>
       {{shop}}
@@ -45,6 +42,11 @@ export default {
       },
     };
   },
+  beforeRouteLeave (to, from, next) {
+    console.log(from);
+    this.$store.state.configOrderHistory = from.path
+    next()
+  },
   methods: {
     //事件
     payment() {
@@ -55,24 +57,32 @@ export default {
         this.orderData.shopcarts_id.push(item.id);
       });
       if (window.confirm("是否确认提交订单")) {
-        create_order(this.orderData).then(res=> {
+        create_order(this.orderData).then((res) => {
           if (res.code != 200) {
             //失败的话 给用于一个提示。当用户点击确认的时候。跳转页面
             this.$router.push("/profile");
             return;
           }
-          this.$router.push('/payment/' + res.data.order_id);
+          //提交订单成功后。把默认的配送地址取回来。放到购物车页面
+          this.$store.state.ShoppingAddress = this.$store.state.userInfo.defaddr;
+          this.$router.push("/payment/" + res.data.order_id);
         });
       }
     },
   },
   computed: {
     //计算
+    address(){
+      return this.$store.state.ShoppingAddress
+    }
   },
   created() {
     //创建
     //JSON.stringify()  // 把数组/对象类型的数据转换成JSON类型的字符串数据
     // JSON.parse() 方法把字符串数据转换成原来的类型
+    if(!this.$store.state.userInfo){
+      this.$store.commit('ROUTERTO','/home')
+    }
     this.shop = JSON.parse(this.$route.params.shop);
   },
   activated() {

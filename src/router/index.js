@@ -6,7 +6,9 @@ const Home = () => import("views/home/Home")
 // const FeaturePage = () => import("views/home/FeaturePage")
 const Category = () => import("views/category/Category")
 const Cart = () => import("views/cart/Cart")
-const ConfirmOrder = () => import("views/order/confirmOrder")
+const NewAddr = () => import('views/confirmOrder/childComp/newAddr')
+const AllAddr = () => import('views/confirmOrder/childComp/allAddr')
+const ConfirmOrder = () => import("views/confirmOrder/ConfirmOrder")
 const Payment = () => import('views/order/payment')
 const Proflie = () => import("views/profile/Profile")
 const Jx = () => import("views/jx/Jx")
@@ -115,7 +117,7 @@ const routes = [
   {
     path:'/confirm_order/:shop',
     meta:{
-      title:"订单"
+      title:"确认订单"
     },
     component:ConfirmOrder
   },
@@ -126,6 +128,20 @@ const routes = [
     },
     component: Payment
   },
+  {//所有地址
+    path: '/allAddr', 
+    meta:{
+      title: "所有地址"
+    },
+    component: AllAddr
+  },
+  {//添加地址  修改配送地址
+    path: '/newAddr/:code',  // 0 新增         >0 修改配送地址
+    meta: {
+      title: "添加地址"
+    },
+    component: NewAddr
+  }
 ]
 
 const routers = new Router({
