@@ -98,7 +98,6 @@
       {{goodsInfo.title}}
     </div>
     <div>
-      巴拉巴拉：
       <span v-for="(item,index) in goodsInfo.imgList" :key="index">{{item}}</span>
     </div>
   </div>
