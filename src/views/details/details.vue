@@ -166,8 +166,6 @@
 
       <!-- 推荐 -->
       <div style="height:800px;background-color:#fff;margin-top:10px;">
-        <h1>推荐</h1>请求数据库 获取一些与当前商品相关 或者类似的数据
-        <hr />推荐组件
         <ul>
           <li>推荐</li>
           <li>猜你喜欢</li>

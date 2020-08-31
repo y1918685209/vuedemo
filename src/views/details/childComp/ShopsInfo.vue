@@ -72,7 +72,7 @@
     </div>
     <div>
       <button @click="collectionStore" :class='{active:collectionAcive}'>收藏店铺</button>
-      <button @click="toStore(shopsinfo.shopsId)">进入店铺</button>
+      <button >进入店铺</button>
     </div>
   </div>
 </template>
