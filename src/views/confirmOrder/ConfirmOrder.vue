@@ -3,7 +3,7 @@
     <scroll class="scroll">
       <nav-bar>
         <div slot="left">
-          <i class="el-icon-arrow-left"></i>
+          <i class="el-icon-arrow-left" v-on:click="$router.go(-1)"></i>
         </div>
         <div slot="center">确认订单</div>
         <div slot="right"></div>

@@ -35,7 +35,7 @@ const state = {
   temp:null,
   totalNum:0,//支付数量
   totalPayment:0,//支付总价
-  shoppingAddress:null,   //配送地址
+  ShoppingAddress:null,   //配送地址
   city:null,
   SKnavigation:null,//用于记录tabbar的上此 路由路径
   ShopCartMoneyAll:0,//记录购物车所有商品价钱总和
@@ -47,6 +47,7 @@ const state = {
   areacodeHistory:'/home',   //记录一下离开页面时。的路由地址 ，默认地址为/home
   loginHistory:'/home',     //记录从那个页面跳转到登录的。
   configOrderHistory:null,  //记录离开确认订单时候的路由地址
+  allAddress:null   //  记录所有的用户地址
 }
 const x = new Vuex.Store({
   state,      //状态管理数据

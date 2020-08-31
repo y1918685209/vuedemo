@@ -141,7 +141,14 @@ const routes = [
       title: "添加地址"
     },
     component: NewAddr
-  }
+  },
+  {//店铺页面
+    path: '/shops/:id', //暂时直接传递商品数据
+    meta: {
+      title: "店铺页"
+    },
+    component:() => import('views/shops/Shops')
+  },
 ]
 
 const routers = new Router({
