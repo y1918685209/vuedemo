@@ -119,15 +119,15 @@ export default {
     this.getFeature(1);
     this.getGoodsMax("recommend");
     this.getGoodsMax("news");
-    if (!this.$store.state.userInfo) {
-      this.auto_code();
-    }
   },
   activated() {
     //在组件激活的时候，调整滚动条的位置。
     this.$refs.homeScrollCom.scroll.scrollTo(0 , this.saveY , 0);
     this.$refs.homeScrollCom.scrollTo1(0, this.saveY, 0);
     this.$refs.homeScrollCom.refreshScroll();
+        if (!this.$store.state.userInfo) {
+      this.auto_code();
+    }
   },
   deactivated() {
     //在组件离开的时候，记录滚动条的位置
@@ -217,17 +217,23 @@ export default {
         this.$store.dispatch("getShopCart", data);
       }  
     },
+    //默认进入有人吗的时候，都是从首页进入
     auto_code(){
       let path = window.location.origin + "/jd";
-      let autocode = window.localStorage.getItem(path);
-      autoLand({
-        autocode:autocode 
-      }).then((res) => {
-        console.log(res);
-        if (res.code != 200) return;
-        this.$store.commit(SET_USERINFO,res)
-        this.getShopCart(res.data.user.id);
-      });
+      let data = window.localStorage.getItem(path);
+      console.log(data);
+      let autocode = JSON.parse(data).autocode;
+      if(autocode != null){
+        autoLand({
+          autocode: autocode
+        }).then((res) => {
+          console.log(res);
+          if (res.code != 200) return;
+          this.$store.commit(SET_USERINFO,res)
+          this.getShopCart(res.data.user.id);
+        });
+      }
+      
     }
   },
   mounted() {

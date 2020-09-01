@@ -1,7 +1,7 @@
 <template>
   <nav-bar id="detailsNavBar" ref="detailsNavBar">
-    <div slot="left" class="left" v-on:click="$router.go(-1)">
-      <i class="el-icon-arrow-left"></i>
+    <div slot="left" class="left" >
+      <i class="el-icon-arrow-left" v-on:click="$router.go(-1)" ></i>
     </div>
     <el-tabs slot="center" class="tabCenter" v-model="currentIndex" @tab-click="tabCenterClick">
       <el-tab-pane

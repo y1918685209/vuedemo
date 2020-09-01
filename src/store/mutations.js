@@ -117,6 +117,14 @@ export default {
     }
     state.userInfo.defaddr = payload.data.defaddr
     state.ShoppingAddress = payload.data.defaddr
-    window.localStorage.setItem(path, payload.data.user.autocode)
+    let data = window.localStorage.getItem(path);
+    if(data != null){
+      data = JSON.parse(data);
+    }else{
+      data = {}
+    }
+    data.autoCode = payload.data.user.autocode;
+    console.log(data); 
+    window.localStorage.setItem(path, JSON.stringify(data))
   }
 }

@@ -101,8 +101,6 @@ export class Evaluate {
             this[i].val = evaluate[i].additional;
             //好评度
             this[i].highpraise = evaluate[i].Highpraise;
-            //是否匿名
-            this[i].anonymous = evaluate[i].anonymous;
         }
     }
 }

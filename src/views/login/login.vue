@@ -139,8 +139,10 @@ export default {
       console.log(window.location.origin);
       let key = window.location.origin + '/jd'
       console.log(key);
+      let data = {}
+      data.autoCode = val;
       //存储数据  key = "localhost:8080/jd"  val === JOSN字符串
-      localStorage.setItem(key,val) 
+      localStorage.setItem(key,JSON.stringify(data)) 
       // console.log(localStorage);
     },
   },

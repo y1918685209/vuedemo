@@ -76,7 +76,7 @@
       .service {
         text-align: left;
         padding-right: 30px;
-        background-color: rgb(223, 223, 223);
+        background-color: #fff;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         .icon {
@@ -362,6 +362,7 @@ export default {
     allAddress() {
       return this.$store.state.allAddress;
     },
+    
   },
   created() {
     // console.log(this.$router);
