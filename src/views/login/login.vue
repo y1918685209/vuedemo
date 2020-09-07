@@ -140,7 +140,6 @@ export default {
     },
   },
   created(){
-    this.setLocalStorageAutoCode()
   },
   beforeRouteLeave(to, from, next) {
     //当页面离开的时候，如果访问的路由时/area_code 则记录当前路由地址

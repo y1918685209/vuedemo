@@ -18,7 +18,7 @@
         </div>
       </div>
       {{shop}}
-      <button @click="payment">确认订单-跳转支付页面-也可以打开一个模态框 进行支付</button>
+      <button @click="payment">确认订单</button>
     </scroll>
   </div>
 </template>
@@ -26,7 +26,7 @@
 <script>
 import NavBar from "components/common/navbar/NavBar";
 import Scroll from "components/contents/scroll/Scroll";
-import { create_order } from "network/order";
+import { create_order, create_details_order} from "network/order";
 export default {
   name: "ConfirmOrder",
   components: {
@@ -61,7 +61,7 @@ export default {
           if (res.code != 200) {
             //失败的话 给用于一个提示。当用户点击确认的时候。跳转页面
             this.$router.push("/profile");
-            return;
+            return console.log("下单失败");
           }
           //提交订单成功后。把默认的配送地址取回来。放到购物车页面
           this.$store.state.ShoppingAddress = this.$store.state.userInfo.defaddr;

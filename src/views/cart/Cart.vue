@@ -7,7 +7,7 @@
         </div>
         <div slot="center">
           <div class="title">购物车</div>
-          <p class="address">配送至:{{address}}</p>
+          <p class="address">配送至:{{address.takeover_addr}}</p>
         </div>
         <div slot="right" class="right">
           <!-- el-icon-more -->
