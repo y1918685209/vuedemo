@@ -221,7 +221,7 @@
       >
 
         <ul style="text-align:left;line-height:20px; font-size:14px;">
-          <li style="padding:10px 0;" v-for="(item,index) in allAddress" :key="index">
+          <li style="padding:10px 0;" v-for="(item,index) in allAddress" :key="index" @click="changeAddr(item.takeover_addr)">
             <!-- 使用过滤器吧地址进行拼接 -->
             {{ item.takeover_addr | changeAddr}}
           </li>
@@ -361,8 +361,7 @@ export default {
     },
     allAddress() {
       return this.$store.state.allAddress;
-    },
-    
+    }
   },
   created() {
     // console.log(this.$router);
@@ -370,10 +369,7 @@ export default {
     // console.log("details被创建");
     this.detailsId = this.$route.params.id;
     this.getGoods(this.detailsId);
-    this.addr =
-      window.localStorage.getItem("jdItem") == null
-        ? "北京 昌平"
-        : window.localStorage.getItem("jdItem");
+    this.getAddr();
   },
   activated() {},
   mounted() {
@@ -451,6 +447,42 @@ export default {
       if (temp.length == 3) temp.pop();
       return temp.join(" ");
     },
+    changeAddr(val){
+      console.log(val);
+      let arr = val.split(",");
+      //过滤数组，排除重复值
+      //拼接到页面中
+      //存到本地存储中，存储的数据，不去存截取后得值，直接存原值
+      this.addr = arr.join('');
+      let path = window.location.origin + '/jd'
+      let data = window.localStorage.getItem(path);
+      if(data != null){
+        data = JSON.parse(data)
+      }else{
+        data = {}
+      }
+      data.orderAddr = val
+      window.localStorage.setItem(path,JSON.stringify(data));
+      this.distribution = false
+    },
+    getAddr(){
+      let path = window.location.origin + '/jd';
+      let data = window.localStorage.getItem(path);
+      if(data != null){
+        data = JSON.parse(data)
+        if(data.orderAddr != null){
+          this.addr =  data.orderAddr
+        }else{
+          this.addr = "北京市,北京市,九九九"
+          data.orderAddr = "北京市,北京市,九九九"
+        }
+      }else{
+          this.addr = "北京市,北京市,九九九"
+          data = {}
+          data.orderAddr = "北京市,北京市,九九九"
+      }
+      window.localStorage.setItem(path,JSON.stringify(data))
+    },
     setDate(nowtime = new Date(), val = 1) {
       let calculationTime = new Date(
         nowtime.getTime() + val * 24 * 60 * 60 * 1000
@@ -503,6 +535,11 @@ export default {
       }
       if (val == "distribution") {
         this.distribution = true;
+        if(!this.$store.state.userInfo){
+          //点击配送至--如果用户没有登陆，应该先让他登录，再获取数据
+          this.$router.path('/login')
+          return;
+        }
         if (this.allAddress == null) {
           get_user_address({
             user_id: this.$store.state.userInfo.id,

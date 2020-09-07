@@ -6,9 +6,11 @@
         <el-input class="textarea" v-model="input" placeholder="请输入内容" v-on:focus="routerTo('/keywords')"></el-input>
       </div>
       <div slot="right">
+        <!-- 登录前 -->
         <span v-if='!$store.state.userInfo' @click="routerTo('/login')">
             登录
         </span>
+        <!-- 登录后 -->
          <span class="el-icon-user-solid" v-else @click="routerTo('/profile')">
             
         </span>
@@ -122,7 +124,7 @@ export default {
   },
   activated() {
     //在组件激活的时候，调整滚动条的位置。
-    this.$refs.homeScrollCom.scroll.scrollTo(0 , this.saveY , 0);
+    this.$refs.homeScrollCom.scroll.scrollTo(0, this.saveY, 0);
     this.$refs.homeScrollCom.scrollTo1(0, this.saveY, 0);
     this.$refs.homeScrollCom.refreshScroll();
         if (!this.$store.state.userInfo) {
@@ -220,16 +222,18 @@ export default {
     //默认进入有人吗的时候，都是从首页进入
     auto_code(){
       let path = window.location.origin + "/jd";
+      //先去本地存储取值
       let data = window.localStorage.getItem(path);
-      console.log(data);
-      let autocode = JSON.parse(data).autocode;
-      if(autocode != null){
+      console.log(data)
+      //
+      if(data != null){
+        let autocode = JSON.parse(data).autocode;
         autoLand({
           autocode: autocode
         }).then((res) => {
           console.log(res);
           if (res.code != 200) return;
-          this.$store.commit(SET_USERINFO,res)
+          this.$store.commit(SET_USERINFO,res) //每次登录更改登录
           this.getShopCart(res.data.user.id);
         });
       }

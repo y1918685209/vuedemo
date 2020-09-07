@@ -99,24 +99,23 @@ export default {
     state;
     router.push(payload)
   },
-  //暂时不用
+  //自动登录
   [types.AOTU_CODE]() {
     console.log(window.localStorage);
     let path = window.location.origin + '/jd'
     let autocode = window.localStorage.getItem(path)
-    console.log(autocode);
     return autoLand({autocode})
   },
   [types.SET_USERINFO](state,payload) {
     console.log(payload);
     state.userInfo = {}
     let path = window.location.origin + '/jd'
-    // this.$store.state.userInfo = res.data.user
     for(let i in payload.data.user){
       state.userInfo[i] = payload.data.user[i]
     }
     state.userInfo.defaddr = payload.data.defaddr
     state.ShoppingAddress = payload.data.defaddr
+    //先去本地存储取值，在设置autoCode
     let data = window.localStorage.getItem(path);
     if(data != null){
       data = JSON.parse(data);
@@ -124,7 +123,6 @@ export default {
       data = {}
     }
     data.autoCode = payload.data.user.autocode;
-    console.log(data); 
     window.localStorage.setItem(path, JSON.stringify(data))
   }
 }
