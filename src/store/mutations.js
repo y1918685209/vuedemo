@@ -117,7 +117,7 @@ export default {
     state.ShoppingAddress = payload.data.defaddr
     //先去本地存储取值，在设置autoCode
     let data = window.localStorage.getItem(path);
-    if(data != null){
+    if(data != null && data != ""){
       data = JSON.parse(data);
     }else{
       data = {}

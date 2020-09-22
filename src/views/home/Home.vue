@@ -301,6 +301,7 @@ export default {
 .tabContent {
   display: flex;
   flex-wrap: wrap;
+  background-color:#fff;
 }
 .tabContent .tabTitle {
   width: 100%;

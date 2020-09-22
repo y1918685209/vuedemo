@@ -241,6 +241,9 @@ export default {
 .active {
   color: red;
 }
+.two{
+  background-color: #fff;
+}
 .two dl {
   display: flex;
   flex-wrap: wrap;

@@ -260,4 +260,7 @@ export default {
 .el-popper[x-placement^=bottom] .popper__arrow::after{
   border-bottom-color:#000;
 }
+.jx .GoodsList{
+  background-color:#fff;
+}
 </style>

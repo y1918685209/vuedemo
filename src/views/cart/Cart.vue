@@ -7,7 +7,8 @@
         </div>
         <div slot="center">
           <div class="title">购物车</div>
-          <p class="address">配送至:{{address.takeover_addr}}</p>
+        <!--p class="address">配送至:{{address.takeover_addr}}</p-->
+          <p class="address">配送至:{{address}}</p>
         </div>
         <div slot="right" class="right">
           <!-- el-icon-more -->
@@ -109,7 +110,16 @@ export default {
       return this.$store.state.urlPath;
     },
     address() {
-      return this.$store.state.ShoppingAddress;
+    //   //去除地址中的默认地址
+    //   if(this.$store.state.userInfo){
+        return this.$store.state.ShoppingAddress.takeover_addr.split(",").join(' ');
+    //   }else{
+    //     let path = window.location.origin + '/jd';
+    //     let data = windwo.localStorage.getItem(path);
+    //     if(data = null){
+          
+    //     }
+    //   }
     },
     shopCart() {
       return this.$store.state.shopCart;

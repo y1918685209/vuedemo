@@ -15,3 +15,9 @@ export function UpdataShopCart(data) {
         data
     })
 }
+export function addShopCart(data) {
+    return requestPost({
+        url: '/vuedemo/set_shopcart',
+        data
+    })
+}

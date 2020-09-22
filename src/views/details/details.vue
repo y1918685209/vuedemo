@@ -115,6 +115,8 @@
         <div class="selected" @click="open('selected')">
           <div class="left">已选</div>
           <div class="right">
+          <span>规格....</span>
+          <span>{{orderSel.order_num}}个</span>
             <span class="icon el-icon-more"></span>
           </div>
         </div>
@@ -209,6 +211,14 @@
               </div>
             </div>
           </div>
+          <div class="order_num">
+            <div>数量</div>
+            <div>
+              <button @click='order_num--' :disabled='orderSel.order_num <= 1'>-</button>
+              <input type="text" v-model='orderSel.order_num'>
+              <button @click="orderSel.order_num++">+</button>
+            </div>
+          </div>
         </div>
       </el-drawer>
       <el-drawer
@@ -220,7 +230,7 @@
         custom-class="自定义类名"
       >
 
-        <ul style="text-align:left;line-height:20px; font-size:14px;">
+        <ul style="text-align:left;line-height:20px; font-size:14px;" v-if='$store.state.userInfo'>
           <li style="padding:10px 0;" v-for="(item,index) in allAddress" :key="index" @click="changeAddr(item.takeover_addr)">
             <!-- 使用过滤器吧地址进行拼接 -->
             {{ item.takeover_addr | changeAddr}}
@@ -239,7 +249,7 @@
       </el-drawer>
     </scroll>
 
-    <details-tab-bar></details-tab-bar>
+    <details-tab-bar :addshopcart="addShop" :toaddorder="addOrder"></details-tab-bar>
   </div>
 </template>
 
@@ -256,6 +266,7 @@ import DetailsTabBar from "./childComp/DetailsTabBar";
 // import {getgoods,getGoods_id} from 'network/goods'
 import { getGoodsId } from "network/details.js";
 import { get_user_address } from "network/address";
+import { addShopCart } from "network/shopCart"
 import { GoodsInfo, ShopInfo ,SelectNorm,Evaluate} from "common/utils";
 // import { GoodsInfo, ShopInfo} from "common/utils";
 export default {
@@ -282,7 +293,11 @@ export default {
       shopCategory: "", //商铺是个体还是自营
       addr: "",           // 在本地存储取到的地址
       free_freight: 0,    // 是否免运费  0 不免  1 免
-    };
+      orderSel:{
+        order_num:1,//购买的商品数量
+        norm:{},
+      }
+    }
   },
   components: {
     Scroll,
@@ -370,6 +385,11 @@ export default {
     this.detailsId = this.$route.params.id;
     this.getGoods(this.detailsId);
     this.getAddr();
+  },
+  watch:{
+    order_num(val){
+      console.log(val);
+    }
   },
   activated() {},
   mounted() {
@@ -577,6 +597,60 @@ export default {
         }
         this.selectNorm.relation = bbb
         console.log(this.selectNorm);
+    },
+    addShop(){
+      console.log("执行力添加购物车")
+      let shopCart = {}
+      shopCart.goods_id = this.detailsId;
+      shopCart.user_id = this.$store.state.userInfo ? this.$store.state.userInfo.id : '';
+      shopCart.num = this.orderSel.order_num;
+      //需要计算取值
+      shopCart.norm = JSON.stringify(this.orderSel.norm);//传递json串
+      shopCart.takeover_addr = this.addr;
+      if(this.$store.state.userInfo){
+        //请求购物车
+        console.log("用户存在");
+        addShopCart(shopCart).then(res=>{
+          console.log(res);
+        })
+      }else{
+        console.log("用户不存在");
+        let path = window.location.origin + '/jd';
+        let data = window.localStorage.getItem(path);
+        if(data != null && data != ''){
+          data = JSON.parse(data);
+          let temp = 0;
+          if(data.shopCart && data.shopCart.length > 0){
+            for(let i = 0; i < data.shopCart.length; i++){
+              if(data.shopCart[i].goods_id == shopCart.goods_id && data.shopCart[i].norm == shopCart.norm && data.shopCart[i].takeover_addr == shopCart.takeover_addr){
+                data.shopCart[i].num += shopCart.num * 1;
+                break;
+              }
+              temp++;
+            }
+            if(temp == data.shopCart.length){
+              data.shopCart.push(shopCart)
+            }
+          }else{
+            data.shopCart = [];
+            data.shopCart.push(shopCart)
+          }
+        }else{
+          data = {}
+          data.shopCart = []
+          data.shopCart.push(shopCart)
+        }
+        //...shopCart是否存在，存在添加数据，不存在创建数据
+        this.$store.state.shopCartLength = 0;
+        data.shopCart.forEach((item) => {
+          console.log(item);
+          this.$store.state.shopCartLength += item.num * 1;
+        })
+        window.localStorage.setItem(path,JSON.stringify(data));
+      }
+    },
+    addOrder(){
+      console.log("执行力添加购物车2")
     }
   },
   filters: {

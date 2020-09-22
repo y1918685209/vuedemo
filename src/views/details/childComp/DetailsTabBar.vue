@@ -18,12 +18,12 @@
         </tab-bar-item>
     </tab-bar>
     <div class='btnAll'>
-      <router-link tag='button' to='/cart'>
+    <button v-on:click="shopcart">
         <span>加入购物车</span>
-      </router-link>
-      <router-link tag='button' to='payload' class='payload'>
+      </button> 
+      <button class='payload' v-on:click="toOrder">
         <span >立即购买</span>
-      </router-link >
+      </button >
     </div>
   </div>
 </template>
@@ -71,7 +71,13 @@ export default {
     //渲染
   },
   methods: {
-    //事件
+     //事件
+    shopcart(){
+      this.$parent.addShop();
+    },
+    toOrder(){
+      this.$parent.addOrder(1);
+    }
   },
   watch: {
     //监听

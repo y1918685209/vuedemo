@@ -114,7 +114,7 @@ export default {
         //跳转指定页面(从哪里来回哪里去)
         this.$store.commit(SET_USERINFO,res)
         //本地存储存数据
-         // this.setLocalStorageAutoCode(res.data.user.autocode)
+        //  this.setLocalStorageAutoCode(res.data.user.autocode)
         //获取购物车数据    因为是异步加载数据，所以需要dispatch进行数据分发。才能监听数据
         this.$store.dispatch('getShopCart',res.data.user.id)
         //跳转页面
