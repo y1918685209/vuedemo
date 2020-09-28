@@ -50,5 +50,7 @@ export default {
 </script>
 
 <style scoped>
-
+    #HomeFeature{
+        background-color: #f6f6f6;
+    }
 </style>

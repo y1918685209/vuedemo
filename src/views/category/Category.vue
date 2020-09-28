@@ -5,7 +5,16 @@
       <div slot="center">
         <el-input class="textarea" v-model="input" placeholder="请输入内容" v-on:focus="toKeywords"></el-input>
       </div>
-      <div slot="right">登录</div>
+      <div slot="right">
+        <!-- 登录前 -->
+        <span v-if='!$store.state.userInfo' @click="routerTo('/login')">
+            登录
+        </span>
+        <!-- 登录后 -->
+         <span class="el-icon-user-solid" v-else @click="routerTo('/profile')">
+            
+        </span>
+      </div>
     </nav-bar>
     <div id="category">
       <scroll class="one" ref="one">
@@ -60,7 +69,7 @@
 //引入公共组件
 import NavBar from "components/common/navbar/NavBar";
 import FeatureTabControl from "components/contents/featureTabControl/FeatureTabControl";
-
+import {ROUTERTO} from "store/mutation-types"
 import Scroll from "components/contents/scroll/Scroll";
 //引入网络模块的部分功能/方法
 import {
@@ -141,6 +150,9 @@ export default {
       //回传数据给子组件 / 修改子组件的数据
       //(ref = categoryControl 的组件的值)
       this.$refs.categoryControl.itemIndex = index;
+    },
+    routerTo(path) {
+      this.$store.commit(ROUTERTO, path);
     },
     rmHistory() {
       let that = this;

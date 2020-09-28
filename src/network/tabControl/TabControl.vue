@@ -83,8 +83,6 @@ export default {
   background-color:white;
 }
 .tabControl div {
-  border-bottom: 1px solid #555555;
-  border-top: 1px solid #555555;
   height: 40px;
   border-radius:20px;
 }

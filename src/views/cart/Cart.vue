@@ -7,7 +7,6 @@
         </div>
         <div slot="center">
           <div class="title">购物车</div>
-        <!--p class="address">配送至:{{address.takeover_addr}}</p-->
           <p class="address">配送至:{{address}}</p>
         </div>
         <div slot="right" class="right">
@@ -110,16 +109,20 @@ export default {
       return this.$store.state.urlPath;
     },
     address() {
-    //   //去除地址中的默认地址
-    //   if(this.$store.state.userInfo){
-        return this.$store.state.ShoppingAddress.takeover_addr.split(",").join(' ');
-    //   }else{
-    //     let path = window.location.origin + '/jd';
-    //     let data = windwo.localStorage.getItem(path);
-    //     if(data = null){
-          
-    //     }
-    //   }
+      //   //去除地址中的默认地址
+      let addr = '';
+      if(this.$store.state.userInfo){
+        addr = this.$store.state.ShoppingAddress.takeover_addr.split(",").join(' ');
+      }else{
+        let path = window.location.origin + '/jd';
+        let data = window.localStorage.getItem(path);
+        if(data != null){
+          addr = data.orderAddr ? data.orderAddr : '北京市,北京市,昌平区' 
+        }else{
+          addr = '北京市,北京市,昌平区'
+        }
+      }
+      return addr.split(",").join('')
     },
     shopCart() {
       return this.$store.state.shopCart;
@@ -319,7 +322,6 @@ export default {
       text-overflow: ellipsis;
     }
   }
-
   .shopBox {
     margin-top: 15px;
     border-radius: 10px;

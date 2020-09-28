@@ -13,18 +13,20 @@
             <el-radio v-model="radio" :label="i.default"></el-radio>
           </span>
           <div>
-            <p>
-              <strong></strong>
-            </p>
-            <p style="font-size:12px;">
-              <span>{{i}}</span>
-            </p>
+            <div class="leftBox1">
+              <div class="leftBox11" >
+                <span>{{i.takeover_name}}</span>&nbsp;
+                <span>{{i.takeover_tel | hiddenPhone}}</span>
+              </div>
+              <span class="leftBox12">{{i.takeover_label}}</span>
+              <span>{{i.takeover_addr}}</span>
+            </div>
           </div>
         </div>
         <div class="rightBox" @click="$store.commit('ROUTERTO','/newAddr/' + i.id)">编辑</div>
       </div>
-    </div>
 
+    </div>
     <div class="tabbar">
       <el-button type="danger" round @click="$store.commit('ROUTERTO','/newAddr/0')">新增收货地址</el-button>
     </div>
@@ -91,9 +93,11 @@ export default {
   },
 };
 </script>
-<style lang='less' scoped>
+<style lang='less'>
+.navbar{
+  background:#fff;
+}
 .bigBox {
-  margin-top: 50px;
   background-color: #fff;
   .box {
     border-top: 1px solid rgba(238, 238, 238, 0.589);
@@ -105,27 +109,44 @@ export default {
       flex: 10;
       display: flex;
       .radioBox {
-        width: 60px;
+        width: 30px;
+        margin-top:12px;
         overflow: hidden;
+        .el-radio__label{
+          margin-left: 10px;
+        }
       }
       p {
         margin: 0;
         line-height: 22px;
       }
+      .leftBox1{
+        font-size:12px;
+        .leftBox11{
+          height:20px;font-size:15px;font-weight:bold;margin-bottom: 5px;
+        }
+        .leftBox12{
+          color: #4b9bfb;padding:0 2px;border-radius:3px;border:1px solid #4b9bfb;margin-right:10px;
+        }
+      }
+      
     }
     .rightBox {
       flex: 1;
       color: rgb(224, 15, 15);
+      font-size:13px;
+      margin-top:12px;
     }
   }
 }
 .tabbar {
   position: fixed;
   width: 100%;
-  bottom: 20px;
+  bottom: 1px;
   .el-button {
     width: 94%;
     background-image: linear-gradient(135deg, #f2140c, #f2270c 70%, #f24d0c);
+    height:40px;
   }
 }
 </style>

@@ -2,7 +2,7 @@
     <rotation :interval = "3000" :showIndicator = "true" divID="bannerBox">
         <rotation-item v-for="(item,index) in cbanners" :key="index">
             <a :href="item.href">
-                <img :src="path+bannerSrc+item.crs" />
+                <img :src="path+bannerSrc+item.crs" style="border-radius:10px"/>
             </a>
         </rotation-item>
     </rotation>

@@ -14,9 +14,7 @@
         <p class="title1">
           {{citem.name}}
         </p>
-        <br>
         ￥{{citem.money_now}}
-        <br>
       </span>
     </router-link>
     <!-- </a> -->

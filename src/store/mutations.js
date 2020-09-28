@@ -108,6 +108,13 @@ export default {
   },
   [types.SET_USERINFO](state,payload) {
     console.log(payload);
+    //把返回的用户信息中的收藏做处理
+    if(payload.data.user.collectShop && payload.data.user.collectShop != ''){//存储有值
+      //有值做分隔---变成数组
+      payload.data.user.collectShop = payload.data.user.collectShop.split(',');
+    }else{
+      payload.data.user.collectShop = []
+    }
     state.userInfo = {}
     let path = window.location.origin + '/jd'
     for(let i in payload.data.user){

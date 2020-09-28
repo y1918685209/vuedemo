@@ -224,16 +224,16 @@ export default {
         bottom:20px;
     }
     .round-item{
-        width: 10px;
-        height: 10px;
-        border-radius: 5px;
-        background:#fff;
+        width: 8px;
+        height: 3px;
+        border-radius: 3px;
+        background: hsla(0,0%,92.9%,.4);
         line-height:10px;
         font-size:10px;
-        color:red;
-        margin:0 5px;
+        margin:0 2px;
     }
     .round-item.active{
-        background-color:red;
+        width: 13px;
+        background-color:#fff;
     }
 </style>

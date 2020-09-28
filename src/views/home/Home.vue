@@ -1,21 +1,46 @@
 <template>
   <div id="home">
-    <nav-bar class="home-nav-bar" >
-      <div slot="left" v-on:click="$store.commit('ROUTERTO','/category')"><img src="../../assets/img/1/分类.png" alt=""></div>
+    <nav-bar class="home-nav-bar">
+      <div slot="left" v-on:click="$store.commit('ROUTERTO', '/category')">
+        <img src="../../assets/img/1/分类.png" alt="" />
+      </div>
       <div slot="center">
-        <el-input class="textarea" v-model="input" placeholder="请输入内容" v-on:focus="routerTo('/keywords')"></el-input>
+        <img
+          src="~assets/img/1/logo.png"
+          style="
+            position: absolute;
+            z-index: 10;
+            margin-top: 11px;
+            margin-left: 10px;
+          "
+        />
+        <img
+          src="~assets/img/1/ss.png"
+          style="
+            position: absolute;
+            z-index: 10;
+            margin-top: 13px;
+            margin-left: 12%;
+          "
+        />
+        <el-input
+          class="textarea"
+          v-model="input"
+          placeholder="劳力士👑"
+          v-on:focus="routerTo('/keywords')"
+          >ss</el-input
+        >
       </div>
       <div slot="right">
         <!-- 登录前 -->
-        <span v-if='!$store.state.userInfo' @click="routerTo('/login')">
-            登录
+        <span v-if="!$store.state.userInfo" @click="routerTo('/login')">
+          登录
         </span>
         <!-- 登录后 -->
-         <span class="el-icon-user-solid" v-else @click="routerTo('/profile')">
-            
-        </span>
+        <span v-else class="kk" @click="routerTo('/profile')"> </span>
       </div>
     </nav-bar>
+    <div class="bjys"></div>
     <scroll
       class="homeContent"
       :probeType="3"
@@ -27,19 +52,21 @@
       <!-- 轮播图 -->
       <home-rotation :cbanners="banners"></home-rotation>
       <!-- 功能视图 -->
-      <home-feature :cfeature="feature" @cfeatureAll="routerTo('home/feature')"></home-feature>
-      <div>
-        <button style="width:100%" @click="changeDirection">改变商品数据排列</button>
+      <home-feature
+        :cfeature="feature"
+        @cfeatureAll="routerTo('home/feature')"
+      ></home-feature>
+      <div class="tabTitle">
+        <div class="img1">
+          <img src="~assets/img/1/xr.png" /><img src="~assets/img/1/xr2.png" />
+        </div>
       </div>
       <div class="tabContent">
-        <div class="tabTitle">
-          <button @click="tabClick('recommend')">recommend</button>
-          <button @click="tabClick('news')">news</button>
-        </div>
+        <div><img src="~assets/img/1/wntj.png" alt=""></div>
         <goods-list
           :cgoods="showGoodsList"
           :cpath="path"
-          :cisDirection="parentDirection"
+          :cisDirection="!parentDirection"
           :bus="bus"
         ></goods-list>
       </div>
@@ -61,11 +88,11 @@ import HomeFeature from "./childComp/HomeFeature";
 // import {getHomeBanner} from "network/home"
 import { debounce } from "common/utils";
 //引入其他文件
-import {ROUTERTO,SET_USERINFO} from "store/mutation-types"
+import { ROUTERTO, SET_USERINFO } from "store/mutation-types";
 //引入网络请求模块部分组件/方法
-import { getHomeBanner, getFeature} from "network/home";
+import { getHomeBanner, getFeature } from "network/home";
 //取商品数据
-import { getGoods} from "network/goods";
+import { getGoods } from "network/goods";
 import { autoLand } from "network/user";
 export default {
   name: "Home",
@@ -97,11 +124,12 @@ export default {
         like: "", //模糊查询
         order: {
           // c2_id: "UtoD",
-          // money_now: "DtoU", 
+          // money_now: "DtoU",
         },
         minMoney: 0,
-        maxMoney: 0, 
-        exact: {//精确查找
+        maxMoney: 0,
+        exact: {
+          //精确查找
         },
       },
     };
@@ -127,7 +155,7 @@ export default {
     this.$refs.homeScrollCom.scroll.scrollTo(0, this.saveY, 0);
     this.$refs.homeScrollCom.scrollTo1(0, this.saveY, 0);
     this.$refs.homeScrollCom.refreshScroll();
-        if (!this.$store.state.userInfo) {
+    if (!this.$store.state.userInfo) {
       this.auto_code();
     }
   },
@@ -176,9 +204,9 @@ export default {
     getGoodsMax(type) {
       // let page = this.goods[type].page + 1;
       let data = {
-        page:this.goods[type].page + 1,
-        pagesize:10
-      }
+        page: this.goods[type].page + 1,
+        pagesize: 10,
+      };
       getGoods(data).then((res) => {
         this.goods[type].page += 1;
         this.goods[type].list.push(...res.data);
@@ -202,43 +230,38 @@ export default {
     //   this.$router.commit(ROUTERTO);
     // },
     //跳转关键字页面
-    Login(){
+    Login() {
       this.$router.push("/login");
     },
     //路由跳转
     routerTo(path) {
       this.$store.commit(ROUTERTO, path);
     },
-    //切换功能视图横纵向展示事件
-    changeDirection() {
-      this.parentDirection = !this.parentDirection;
-    },
     //获取购物车数据，调用vuex中actions的数据
     getShopCart(data) {
-      if(data != "" && data != null && data != undefined){
+      if (data != "" && data != null && data != undefined) {
         this.$store.dispatch("getShopCart", data);
-      }  
+      }
     },
     //默认进入有人吗的时候，都是从首页进入
-    auto_code(){
+    auto_code() {
       let path = window.location.origin + "/jd";
       //先去本地存储取值
       let data = window.localStorage.getItem(path);
-      console.log(data)
+      console.log(data);
       //
-      if(data != null){
+      if (data != null) {
         let autocode = JSON.parse(data).autocode;
         autoLand({
-          autocode: autocode
+          autocode: autocode,
         }).then((res) => {
           console.log(res);
           if (res.code != 200) return;
-          this.$store.commit(SET_USERINFO,res) //每次登录更改登录
+          this.$store.commit(SET_USERINFO, res); //每次登录更改登录
           this.getShopCart(res.data.user.id);
         });
       }
-      
-    }
+    },
   },
   mounted() {
     // 使用防抖方法，放置图片刷新被多次循环调用，在指定事件内，如果没有图片加载完成，我们在刷新scroll高度
@@ -250,7 +273,7 @@ export default {
       refresh();
     });
   },
-   //当离开页面的时候
+  //当离开页面的时候
   beforeRouteLeave(to, from, next) {
     //当页面离开的时候，如果访问的路由时/area_code 则记录当前路由地址
     if (to.path == "/login") this.$store.state.loginHistory = from.path;
@@ -263,71 +286,100 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="less">
 #home {
   /* padding-top: 44px; */
   height: 100vh;
   position: relative;
-}
-.home-nav-bar {
-  background-color: #e43130;
-  color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-}
-.homeContent {
-  position: absolute;
-  top: 44px;
-  left: 0;
-  right: 0;
-  bottom: 49px;
-  /* height:calc(100vh - 93px); */
-  overflow: hidden;
-}
-.toTop {
-  position: absolute;
-  bottom: 100px;
-  right: 5px;
-  /* background-color: red; */
-  background-image: url(~assets/img/common/top.png);
-  display: block;
-  width: 40px;
-  height: 40px;
-  background-size: 100%;
-}
-.tabContent {
-  display: flex;
-  flex-wrap: wrap;
-  background-color:#fff;
-}
-.tabContent .tabTitle {
-  width: 100%;
-  display: flex;
-}
-.tabContent .tabTitle button {
-  width: 50%;
-  height: 40px;
-  flex: 1;
-}
-.tabContent div {
-  width: 100%;
-}
-.tabContent div ul {
-  width: 100;
-}
-.tabContent div ul li img {
-  width: 30%;
-}
-.home-nav-bar .left img{
-    width:40%;
-    margin-top:25%;
-}
-.textarea>>>.el-input__inner{
-  border-radius: 20px;
-  height: 35px;
-  padding-top: 2px;
+  .home-nav-bar {
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+  .homeContent {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 49px;
+    /* height:calc(100vh - 93px); */
+    overflow: hidden;
+  }
+  .toTop {
+    position: absolute;
+    bottom: 100px;
+    right: 5px;
+    /* background-color: red; */
+    background-image: url(~assets/img/common/top.png);
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-size: 100%;
+  }
+  .tabTitle {
+    width: 100%;
+    display: flex;
+    margin: 5px 0;
+  }
+  .tabTitle .img1 {
+    padding: 0 10px;
+  }
+  .tabTitle img {
+    width: 50%;
+  }
+  .tabContent {
+    display: flex;
+    flex-wrap: wrap;
+    margin:10px;
+  }
+  .tabContent img {
+    width: 100%;
+  }
+  .GoodsListItem.column{
+    background: #fff;
+    margin:1%;
+    border:0;
+  }
+  .GoodsListItem.column a{
+    text-decoration:none;
+  }
+  .GoodsListItem.column span {
+    color: black;
+  }
+  .home-nav-bar .left img {
+    width: 40%;
+    margin-top: 25%;
+  }
+  .textarea {
+    width: 100%;
+  }
+  .textarea .el-input__inner {
+    border-radius: 20px;
+    height: 30px;
+    background: #f7f7f7;
+    padding-left: 75px;
+    width: 100%;
+    padding-top: 3px;
+  }
+  .kk {
+    background-image: url(~assets/img/1/user.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    width: 100%;
+    height: 50px;
+    display: block;
+    margin-left: 15px;
+    margin-top: 9px;
+  }
+  .bjys {
+    background-image: linear-gradient(0deg, #f1503b, #c82519 50%);
+    width: 100%;
+    height: 150px;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+  }
 }
 </style>

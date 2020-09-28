@@ -117,7 +117,7 @@ export default {
   },
   components:{
     NavBar,
-    Scroll
+    Scroll,
   },
   //当页面离开的时候
   beforeRouteLeave(to, from, next) {

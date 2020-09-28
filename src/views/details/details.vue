@@ -1,6 +1,6 @@
 <style lang='less'>
 #details {
-  background-color:#f3f3f3;
+  background-color: #f3f3f3;
   /* tabbar导航的数量*/
   /* @tabbar_length : 4;*/
   width: 100vw;
@@ -92,7 +92,12 @@
 <template>
   <div id="details" v-loading="loading">
     <details-nav-bar ref="detailsNavBar" :title="titleArr"></details-nav-bar>
-    <scroll class="detailsScroll" ref="DetailsScroll" @parentScroll="getScrollY" :probeType="3">
+    <scroll
+      class="detailsScroll"
+      ref="DetailsScroll"
+      @parentScroll="getScrollY"
+      :probeType="3"
+    >
       <details-banner :dfeature="goodsImg"></details-banner>
       <div class="message">
         <!-- 商品信息 -->
@@ -102,11 +107,10 @@
         <div class="discount" @click="open('discount')">
           <div class="left">优惠</div>
           <div class="right">
+            <div><span>换购</span>是否有换购---有 显示,没有不选是</div>
             <div>
-              <span>换购</span>是否有换购---有 显示,没有不选是
-            </div>
-            <div>
-              <span>限购</span>是否有限购---有 显示,没有不选是 111 111 111 1 11 11
+              <span>限购</span>是否有限购---有 显示,没有不选是 111 111 111 1 11
+              11
             </div>
             <span class="icon el-icon-more"></span>
           </div>
@@ -115,8 +119,8 @@
         <div class="selected" @click="open('selected')">
           <div class="left">已选</div>
           <div class="right">
-          <span>规格....</span>
-          <span>{{orderSel.order_num}}个</span>
+            <span>规格....</span>
+            <span>{{ orderSel.order_num }}个</span>
             <span class="icon el-icon-more"></span>
           </div>
         </div>
@@ -124,10 +128,10 @@
         <div class="distribution" @click="open('distribution')">
           <div class="left">送至</div>
           <div class="right">
-            <p>{{addr}}</p>
+            <p>{{ addr }}</p>
             <p>
               <span v-if="true" title="库存有货则显示">现货</span>
-              {{getDistributionTime}}
+              {{ getDistributionTime }}
             </p>
             <span class="icon el-icon-more"></span>
           </div>
@@ -158,7 +162,10 @@
       </div>
 
       <!--评价 自定义 一个变量数组 暂时使用 -->
-      <details-evaluate :evaluate="detailsEvaluate" :cDetailsId ='detailsId'></details-evaluate>
+      <details-evaluate
+        :evaluate="detailsEvaluate"
+        :cDetailsId="detailsId"
+      ></details-evaluate>
       <!-- 问答 -->
 
       <!-- 体验 -->
@@ -167,14 +174,14 @@
       <shops-info :shopsinfo="shopInfo"></shops-info>
 
       <!-- 推荐 -->
-      <div style="height:800px;background-color:#fff;margin-top:10px;">
+      <div style="height: 800px; background-color: #fff; margin-top: 10px">
         <ul>
           <li>推荐</li>
           <li>猜你喜欢</li>
         </ul>
       </div>
       <!-- 详情 -->
-      <div style="height:800px;background-color:#fff;margin-top:10px;">
+      <div style="height: 800px; background-color: #fff; margin-top: 10px">
         <h1>详情 = 文字 + 图片的组合</h1>
         <ul>
           <li>商品介绍</li>
@@ -203,19 +210,36 @@
         :withHeader="false"
       >
         <div>
-          <div v-for="(item,index) in selectNorm" :key='index'>
-            <div v-for='(i,j) in item' :key='j'>
-              <div>{{j}}</div>
-              <div v-for='(m,n) in i' :key ='n' style='width:90%;height:30px;text-overflow:hidden;overflow:hidden;margin-bottom:10px;text-align:left;background-color:#d4d4d4;line-height:30px;margin-left:5%;border-radius:15px;'>
-                {{m.name}}
+          <div v-for="(item, index) in selectNorm" :key="index">
+            <div v-for="(i, j) in item" :key="j">
+              <div>{{ j }}</div>
+              <div
+                v-for="(m, n) in i"
+                :key="n"
+                style="
+                  width: 90%;
+                  height: 30px;
+                  text-overflow: hidden;
+                  overflow: hidden;
+                  margin-bottom: 10px;
+                  text-align: left;
+                  background-color: #d4d4d4;
+                  line-height: 30px;
+                  margin-left: 5%;
+                  border-radius: 15px;
+                "
+              >
+                {{ m.name }}
               </div>
             </div>
           </div>
           <div class="order_num">
             <div>数量</div>
             <div>
-              <button @click='order_num--' :disabled='orderSel.order_num <= 1'>-</button>
-              <input type="text" v-model='orderSel.order_num'>
+              <button @click="order_num--" :disabled="orderSel.order_num <= 1">
+                -
+              </button>
+              <input type="text" v-model="orderSel.order_num" />
               <button @click="orderSel.order_num++">+</button>
             </div>
           </div>
@@ -229,11 +253,18 @@
         :append-to-body="true"
         custom-class="自定义类名"
       >
-
-        <ul style="text-align:left;line-height:20px; font-size:14px;" v-if='$store.state.userInfo'>
-          <li style="padding:10px 0;" v-for="(item,index) in allAddress" :key="index" @click="changeAddr(item.takeover_addr)">
+        <ul
+          style="text-align: left; line-height: 20px; font-size: 14px"
+          v-if="$store.state.userInfo"
+        >
+          <li
+            style="padding: 10px 0"
+            v-for="(item, index) in allAddress"
+            :key="index"
+            @click="changeAddr(item.takeover_addr)"
+          >
             <!-- 使用过滤器吧地址进行拼接 -->
-            {{ item.takeover_addr | changeAddr}}
+            {{ item.takeover_addr | changeAddr }}
           </li>
         </ul>
       </el-drawer>
@@ -249,7 +280,10 @@
       </el-drawer>
     </scroll>
 
-    <details-tab-bar :addshopcart="addShop" :toaddorder="addOrder"></details-tab-bar>
+    <details-tab-bar
+      :addshopcart="addShop"
+      :toaddorder="addOrder"
+    ></details-tab-bar>
   </div>
 </template>
 
@@ -266,8 +300,8 @@ import DetailsTabBar from "./childComp/DetailsTabBar";
 // import {getgoods,getGoods_id} from 'network/goods'
 import { getGoodsId } from "network/details.js";
 import { get_user_address } from "network/address";
-import { addShopCart } from "network/shopCart"
-import { GoodsInfo, ShopInfo ,SelectNorm,Evaluate} from "common/utils";
+import { addShopCart } from "network/shopCart";
+import { GoodsInfo, ShopInfo, SelectNorm, Evaluate } from "common/utils";
 // import { GoodsInfo, ShopInfo} from "common/utils";
 export default {
   name: "Details",
@@ -277,27 +311,27 @@ export default {
       // path: "http://106.12.85.17:8090/public/image",
       titleArr: ["商品", "评价", "详情", "推荐"],
       detailsGoods: {}, //商品详情数据
-      goodsImg: [],     //轮播图数据
-      shopInfo: {},     //商铺数据
-      selectNorm: {},   // 规格数据
-      detailsEvaluate: {},  // 商品评价
+      goodsImg: [], //轮播图数据
+      shopInfo: {}, //商铺数据
+      selectNorm: {}, // 规格数据
+      detailsEvaluate: {}, // 商品评价
       currentIndex: 0,
       saveY: 0,
       tabCenter: null,
-      loading: false,  // 是否加载等待
+      loading: false, // 是否加载等待
       discount: false, //优惠遮罩层，不显示
       selected: false, // 选择遮罩层 不显示
       distribution: false, // 送至遮罩层 不显示
       service: false, //服务遮罩层不显示
-      nowGoods: true,  
+      nowGoods: true,
       shopCategory: "", //商铺是个体还是自营
-      addr: "",           // 在本地存储取到的地址
-      free_freight: 0,    // 是否免运费  0 不免  1 免
-      orderSel:{
-        order_num:1,//购买的商品数量
-        norm:{},
-      }
-    }
+      addr: "", // 在本地存储取到的地址
+      free_freight: 0, // 是否免运费  0 不免  1 免
+      orderSel: {
+        order_num: 1, //购买的商品数量
+        norm: {},
+      },
+    };
   },
   components: {
     Scroll,
@@ -376,20 +410,13 @@ export default {
     },
     allAddress() {
       return this.$store.state.allAddress;
-    }
+    },
   },
-  created() {
-    // console.log(this.$router);
-    //在keep-alive状态下，created()方法只执行1此，因为当前组件不会被销毁
-    // console.log("details被创建");
-    this.detailsId = this.$route.params.id;
-    this.getGoods(this.detailsId);
-    this.getAddr();
-  },
-  watch:{
-    order_num(val){
+
+  watch: {
+    order_num(val) {
       console.log(val);
-    }
+    },
   },
   activated() {},
   mounted() {
@@ -421,11 +448,14 @@ export default {
         this.shopInfo = new ShopInfo(res.data.shopData);
         console.log(this.detailsGoods);
         // 取规格数据
-        this.selectNorm = new SelectNorm(res.data.norms,res.data.relationGoods)
+        this.selectNorm = new SelectNorm(
+          res.data.norms,
+          res.data.relationGoods
+        );
         // this.getNorm(res.data.norms,res.data.relationGoods)
 
-        //获取评价 
-        this.detailsEvaluate = new Evaluate(res.data.sevaluateDate)
+        //获取评价
+        this.detailsEvaluate = new Evaluate(res.data.sevaluateDate);
         console.log(this.detailsEvaluate);
         //自营 还是个体
 
@@ -467,41 +497,41 @@ export default {
       if (temp.length == 3) temp.pop();
       return temp.join(" ");
     },
-    changeAddr(val){
+    changeAddr(val) {
       console.log(val);
       let arr = val.split(",");
       //过滤数组，排除重复值
       //拼接到页面中
       //存到本地存储中，存储的数据，不去存截取后得值，直接存原值
-      this.addr = arr.join('');
-      let path = window.location.origin + '/jd'
+      this.addr = arr.join("");
+      let path = window.location.origin + "/jd";
       let data = window.localStorage.getItem(path);
-      if(data != null){
-        data = JSON.parse(data)
-      }else{
-        data = {}
+      if (data != null) {
+        data = JSON.parse(data);
+      } else {
+        data = {};
       }
-      data.orderAddr = val
-      window.localStorage.setItem(path,JSON.stringify(data));
-      this.distribution = false
+      data.orderAddr = val;
+      window.localStorage.setItem(path, JSON.stringify(data));
+      this.distribution = false;
     },
-    getAddr(){
-      let path = window.location.origin + '/jd';
+    getAddr() {
+      let path = window.location.origin + "/jd";
       let data = window.localStorage.getItem(path);
-      if(data != null){
-        data = JSON.parse(data)
-        if(data.orderAddr != null){
-          this.addr =  data.orderAddr
-        }else{
-          this.addr = "北京市,北京市,九九九"
-          data.orderAddr = "北京市,北京市,九九九"
+      if (data != null) {
+        data = JSON.parse(data);
+        if (data.orderAddr != null) {
+          this.addr = data.orderAddr;
+        } else {
+          this.addr = "北京市,北京市,九九九";
+          data.orderAddr = "北京市,北京市,九九九";
         }
-      }else{
-          this.addr = "北京市,北京市,九九九"
-          data = {}
-          data.orderAddr = "北京市,北京市,九九九"
+      } else {
+        this.addr = "北京市,北京市,九九九";
+        data = {};
+        data.orderAddr = "北京市,北京市,九九九";
       }
-      window.localStorage.setItem(path,JSON.stringify(data))
+      window.localStorage.setItem(path, JSON.stringify(data));
     },
     setDate(nowtime = new Date(), val = 1) {
       let calculationTime = new Date(
@@ -555,9 +585,9 @@ export default {
       }
       if (val == "distribution") {
         this.distribution = true;
-        if(!this.$store.state.userInfo){
+        if (!this.$store.state.userInfo) {
           //点击配送至--如果用户没有登陆，应该先让他登录，再获取数据
-          this.$router.path('/login')
+          this.$router.path("/login");
           return;
         }
         if (this.allAddress == null) {
@@ -573,85 +603,107 @@ export default {
         this.service = true;
       }
     },
-    getNorm(norm,relation){
-        this.selectNorm = {}
-        let aaa = {}
-        if(norm.length > 0){  
-            for(let i = 0 ; i <norm.length; i++){
-                if(!aaa[norm[i].ggname]){
-                    aaa[norm[i].ggname] = []
-                }
-                aaa[norm[i].ggname].push(norm[i])
-            }    
+    getNorm(norm, relation) {
+      this.selectNorm = {};
+      let aaa = {};
+      if (norm.length > 0) {
+        for (let i = 0; i < norm.length; i++) {
+          if (!aaa[norm[i].ggname]) {
+            aaa[norm[i].ggname] = [];
+          }
+          aaa[norm[i].ggname].push(norm[i]);
         }
-        this.selectNorm.norm = aaa;
-        let bbb = {}
-        if(relation.length >0 ){
-            for(let i = 0 ; i <relation.length; i++){
-                console.log(bbb)
-                if(!bbb[relation[i].relation_name]){
-                    bbb[relation[i].relation_name] = []
-                }
-                bbb[relation[i].relation_name].push(relation[i])
-            }   
+      }
+      this.selectNorm.norm = aaa;
+      let bbb = {};
+      if (relation.length > 0) {
+        for (let i = 0; i < relation.length; i++) {
+          console.log(bbb);
+          if (!bbb[relation[i].relation_name]) {
+            bbb[relation[i].relation_name] = [];
+          }
+          bbb[relation[i].relation_name].push(relation[i]);
         }
-        this.selectNorm.relation = bbb
-        console.log(this.selectNorm);
+      }
+      this.selectNorm.relation = bbb;
+      console.log(this.selectNorm);
     },
-    addShop(){
-      console.log("执行力添加购物车")
-      let shopCart = {}
+    addShop() {
+      console.log("执行力添加购物车");
+      let shopCart = {};
       shopCart.goods_id = this.detailsId;
-      shopCart.user_id = this.$store.state.userInfo ? this.$store.state.userInfo.id : '';
+      shopCart.user_id = this.$store.state.userInfo
+        ? this.$store.state.userInfo.id
+        : "";
       shopCart.num = this.orderSel.order_num;
       //需要计算取值
-      shopCart.norm = JSON.stringify(this.orderSel.norm);//传递json串
+      shopCart.norm = JSON.stringify(this.orderSel.norm); //传递json串
       shopCart.takeover_addr = this.addr;
-      if(this.$store.state.userInfo){
+      if (this.$store.state.userInfo) {
         //请求购物车
         console.log("用户存在");
-        addShopCart(shopCart).then(res=>{
+        addShopCart(shopCart).then((res) => {
           console.log(res);
-        })
-      }else{
+        });
+      } else {
         console.log("用户不存在");
-        let path = window.location.origin + '/jd';
+        let path = window.location.origin + "/jd";
         let data = window.localStorage.getItem(path);
-        if(data != null && data != ''){
+        if (data != null && data != "") {
           data = JSON.parse(data);
           let temp = 0;
-          if(data.shopCart && data.shopCart.length > 0){
-            for(let i = 0; i < data.shopCart.length; i++){
-              if(data.shopCart[i].goods_id == shopCart.goods_id && data.shopCart[i].norm == shopCart.norm && data.shopCart[i].takeover_addr == shopCart.takeover_addr){
+          if (data.shopCart && data.shopCart.length > 0) {
+            for (let i = 0; i < data.shopCart.length; i++) {
+              if (
+                data.shopCart[i].goods_id == shopCart.goods_id &&
+                data.shopCart[i].norm == shopCart.norm &&
+                data.shopCart[i].takeover_addr == shopCart.takeover_addr
+              ) {
                 data.shopCart[i].num += shopCart.num * 1;
                 break;
               }
               temp++;
             }
-            if(temp == data.shopCart.length){
-              data.shopCart.push(shopCart)
+            if (temp == data.shopCart.length) {
+              data.shopCart.push(shopCart);
             }
-          }else{
+          } else {
             data.shopCart = [];
-            data.shopCart.push(shopCart)
+            data.shopCart.push(shopCart);
           }
-        }else{
-          data = {}
-          data.shopCart = []
-          data.shopCart.push(shopCart)
+        } else {
+          data = {};
+          data.shopCart = [];
+          data.shopCart.push(shopCart);
         }
         //...shopCart是否存在，存在添加数据，不存在创建数据
         this.$store.state.shopCartLength = 0;
         data.shopCart.forEach((item) => {
           console.log(item);
           this.$store.state.shopCartLength += item.num * 1;
-        })
-        window.localStorage.setItem(path,JSON.stringify(data));
+        });
+        window.localStorage.setItem(path, JSON.stringify(data));
       }
     },
-    addOrder(){
-      console.log("执行力添加购物车2")
+    addOrder() {
+      console.log("执行力添加购物车2");
+    },
+  },
+  //查看本地存储是否存有购物车数据
+  lookLocalStorage(){
+    if(!this.$store.state.userInfo){
+      let path = window.location.origin + "/jd";
+      let data = window.localStorage.getItem(path);
+      if(data == null || data == "") return
+      if(!data.shopCart) return
+      this.calculactionStorageShopNum(data.shopCart)
     }
+  },
+  calculactionStorageShopNum(arr){
+    this.$store.state.shopCartLength = 0;
+    arr.forEach((item) => {
+      this.$store.state.shopCartLength += item.num*1
+    })
   },
   filters: {
     changePrice(val, str = "$") {
